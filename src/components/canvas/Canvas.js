@@ -22,26 +22,21 @@ function Canvas(props) {
 
   useEffect(() => {
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100000);
-    camera.position.set(0, 100, 700);
+    camera.position.set(0, 150, 400);
+    // camera.target.set(0, 0, 350);
 
     const renderer = new THREE.WebGLRenderer({canvas: canvas.current, antialias: true});
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor("rgb(40, 44, 52)");
 
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.target = new THREE.Vector3(0, 0, 0);
+    controls.target = new THREE.Vector3(0, 90, 0);
 
     const scene = new THREE.Scene();
 
-    const animate = () => {
-    	renderer.render(scene, camera);
-      controls.update();
-    	requestAnimationFrame(animate);
-    }
-
     // Add fog
     const near = 1;
-    const far = 500;
+    const far = 600;
     const color = 'white';
     scene.fog = new THREE.Fog(color, near, far);
     scene.background = new THREE.Color(color);
@@ -50,7 +45,7 @@ function Canvas(props) {
     scene.add(new THREE.AmbientLight(0x333333, 15));
 
     // Add plane
-    const geometry = new THREE.PlaneGeometry(1000, 1000);
+    const geometry = new THREE.PlaneGeometry(200, 200);
     const material = new THREE.MeshBasicMaterial({color: "rgb(55, 84, 30)", side: THREE.DoubleSide});
     const plane = new THREE.Mesh(geometry, material);
     plane.rotation.x = 1.57;
@@ -81,11 +76,22 @@ function Canvas(props) {
 
         clone.rotation.z = Math.PI * randomNum(0, 1);
 
-        clone.scale.z = randomNum(0.5, 1.0);
+        const scaleNum = randomNum(0.5, 1.0);
+        clone.scale.x = scaleNum;
+        clone.scale.y = scaleNum;
+        clone.scale.z = scaleNum;
 
         scene.add(clone);
       }
     });
+
+    const animate = () => {
+    	renderer.render(scene, camera);
+      // console.log(camera.position);
+      // console.log(controls.target);
+      controls.update();
+    	requestAnimationFrame(animate);
+    }
 
     animate();
   }, []);

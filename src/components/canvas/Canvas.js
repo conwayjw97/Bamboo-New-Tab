@@ -39,6 +39,13 @@ function Canvas(props) {
     	requestAnimationFrame(animate);
     }
 
+    // Add fog
+    const near = 1;
+    const far = 500;
+    const color = 'white';
+    scene.fog = new THREE.Fog(color, near, far);
+    scene.background = new THREE.Color(color);
+
     // Add light
     scene.add(new THREE.AmbientLight(0x333333, 15));
 
@@ -69,14 +76,12 @@ function Canvas(props) {
 
       for(let i=0; i<100; i++){
         const clone = object.children[0].clone();
-        clone.position.x = randomNum(-200, 200);
-        clone.position.z = randomNum(-200, 200);
+        clone.position.x = randomNum(-100, 100);
+        clone.position.z = randomNum(-100, 100);
 
         clone.rotation.z = Math.PI * randomNum(0, 1);
 
-        const rand = randomNum(0.5, 1.0);
-        console.log(rand);
-        clone.scale.z = rand;
+        clone.scale.z = randomNum(0.5, 1.0);
 
         scene.add(clone);
       }

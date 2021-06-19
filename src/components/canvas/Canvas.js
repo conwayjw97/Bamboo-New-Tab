@@ -45,10 +45,10 @@ function Canvas(props) {
     scene.add(new THREE.AmbientLight(0x333333, 15));
 
     // Add plane
-    const geometry = new THREE.PlaneGeometry(200, 200);
+    const geometry = new THREE.PlaneGeometry(800, 500);
     const material = new THREE.MeshBasicMaterial({color: "rgb(55, 84, 30)", side: THREE.DoubleSide});
     const plane = new THREE.Mesh(geometry, material);
-    plane.rotation.x = 1.57;
+    plane.rotation.x = Math.PI/2;
     scene.add(plane);
 
     // Add bamboo
@@ -69,9 +69,9 @@ function Canvas(props) {
         }
       });
 
-      for(let i=0; i<100; i++){
+      for(let i=0; i<500; i++){
         const clone = object.children[0].clone();
-        clone.position.x = randomNum(-100, 100);
+        clone.position.x = randomNum(-300, 300);
         clone.position.z = randomNum(-100, 100);
 
         clone.rotation.z = Math.PI * randomNum(0, 1);

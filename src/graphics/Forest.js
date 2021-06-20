@@ -4,7 +4,6 @@ To-Do:
   - Fade in
   - Efficient refactoring
   - New models
-  - Fix bamboo alpha
 */
 
 import * as THREE from "three";

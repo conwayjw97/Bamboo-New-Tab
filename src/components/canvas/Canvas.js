@@ -1,12 +1,3 @@
-/*
-To-Do:
-  - Loading state
-  - Fade in
-  - Efficient refactoring
-  - New models
-  - Fix bamboo alpha
-*/
-
 import React, { useEffect, useState, useRef } from "react";
 import "./Canvas.css";
 

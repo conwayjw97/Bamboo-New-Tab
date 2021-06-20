@@ -1,3 +1,12 @@
+/*
+To-Do:
+  - Loading state
+  - Fade in
+  - Efficient refactoring
+  - New models
+  - Fix bamboo alpha
+*/
+
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
@@ -38,6 +47,7 @@ export default class Forest {
     this.addFog();
     this.addLighting();
     this.addPlane();
+    this.addSides();
     this.addBamboo();
   }
 
@@ -65,6 +75,30 @@ export default class Forest {
     const plane = new THREE.Mesh(geometry, material);
     plane.rotation.x = Math.PI/2;
     this.scene.add(plane);
+  }
+
+  addSides(){
+    const material = new THREE.MeshBasicMaterial({color: "rgb(89, 23, 23)"});
+    const topBoard = new THREE.Mesh(new THREE.BoxGeometry(300, 20, 5), material);
+    topBoard.position.z = -152.5;
+    topBoard.position.y = 10;
+    this.scene.add(topBoard);
+
+    const botBoard = topBoard.clone();
+    botBoard.position.z = 152.5;
+    botBoard.position.y = 10;
+    this.scene.add(botBoard);
+
+    const rightBoard = new THREE.Mesh(new THREE.BoxGeometry(310, 20, 5), material);
+    rightBoard.rotation.y = Math.PI/2;
+    rightBoard.position.x = 152.5;
+    rightBoard.position.z = 0;
+    rightBoard.position.y = 10;
+    this.scene.add(rightBoard);
+
+    const leftBoard = rightBoard.clone();
+    leftBoard.position.x = -152.5;
+    this.scene.add(leftBoard);
   }
 
   addBamboo(){

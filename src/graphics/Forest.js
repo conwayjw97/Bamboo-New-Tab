@@ -19,6 +19,8 @@ import alphaDir from "../resources/models/bamboo/alpha.jpg";
 import pebblesDir from "../resources/textures/pebbles.jpg";
 import pebblesNormalDir from "../resources/textures/pebbles_normal.jpg";
 
+import grassDir from "../resources/textures/grass.png";
+
 export default class Forest {
   constructor(canvas) {
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100000);
@@ -64,13 +66,13 @@ export default class Forest {
 
   addPlane(){
     const geometry = new THREE.PlaneGeometry(300, 300);
-    const texture = new THREE.TextureLoader().load(pebblesDir);
-    const normal = new THREE.TextureLoader().load(pebblesNormalDir);
+    const texture = new THREE.TextureLoader().load(grassDir);
+    // const normal = new THREE.TextureLoader().load(pebblesNormalDir);
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set( 4, 4 );
-    // const material = new THREE.MeshPhongMaterial({map: texture, normalMap: normal, side: THREE.DoubleSide});
-    const material = new THREE.MeshBasicMaterial({color: "rgb(55, 84, 30)", side: THREE.DoubleSide});
+    const material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide});
+    // const material = new THREE.MeshBasicMaterial({color: "rgb(55, 84, 30)", side: THREE.DoubleSide});
     const plane = new THREE.Mesh(geometry, material);
     plane.rotation.x = Math.PI/2;
     this.scene.add(plane);

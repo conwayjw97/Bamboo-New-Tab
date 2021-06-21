@@ -78,35 +78,38 @@ export default class Forest {
     });
 
     const animate = () => {
-      // Texture Fade-In animation
-      /*
-      You may be wondering why the bamboo material has to be set to 0.8 opacity
-      initially. This is because if the material has an alphaTest value, it will
-      remain transparent until opacity >= alphaTest, so the bamboo material needs
-      a head start when fading in.
-      You may also be wondering why I didn't set the other textures to alphaTest 0.8
-      so they can all just fade in together, and this is because doing so breaks
-      the opacity of materials without alphaMaps.
-      */
-      if(this.bambooMaterial.opacity < 0.8){
-        this.bambooMaterial.opacity = 0.8;
-      }
-      if(this.planeMaterial.opacity < 1.0){
-        this.planeMaterial.opacity += 0.005;
-        this.sideBoardMaterial.opacity += 0.005;
-        this.bambooMaterial.opacity += 0.001;
-      }
-      else if(this.planeMaterial.opacity > 1.0){
-        this.planeMaterial.opacity = 1.0;
-        this.sideBoardMaterial.opacity = 1.0;
-        this.bambooMaterial.opacity = 1.0;
-      }
+      this.fadeInMaterials();
       this.renderer.render(this.scene, this.camera);
       this.controls.update();
       requestAnimationFrame(animate);
     }
 
     animate();
+  }
+
+  fadeInMaterials(){
+    /*
+    You may be wondering why the bamboo material has to be set to 0.8 opacity
+    initially. This is because if the material has an alphaTest value, it will
+    remain transparent until opacity >= alphaTest, so the bamboo material needs
+    a head start when fading in.
+    You may also be wondering why I didn't set the other textures to alphaTest 0.8
+    so they can all just fade in together, and this is because doing so breaks
+    the opacity of materials without alphaMaps.
+    */
+    if(this.bambooMaterial.opacity < 0.8){
+      this.bambooMaterial.opacity = 0.8;
+    }
+    if(this.planeMaterial.opacity < 1.0){
+      this.planeMaterial.opacity += 0.005;
+      this.sideBoardMaterial.opacity += 0.005;
+      this.bambooMaterial.opacity += 0.001;
+    }
+    else if(this.planeMaterial.opacity > 1.0){
+      this.planeMaterial.opacity = 1.0;
+      this.sideBoardMaterial.opacity = 1.0;
+      this.bambooMaterial.opacity = 1.0;
+    }
   }
 
   render() {

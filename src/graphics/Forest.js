@@ -1,9 +1,11 @@
 /*
 To-Do:
-  - Loading state
-  - Fade in
-  - Efficient refactoring
+  - Loading state?
+  - Wood texture
   - New models
+
+Links of interest:
+https://threejs.org/examples/webgl_water_flowmap.html
 */
 
 import * as THREE from "three";
@@ -19,7 +21,9 @@ import alphaDir from "../resources/models/bamboo/alpha.jpg";
 import pebblesDir from "../resources/textures/pebbles.jpg";
 import pebblesNormalDir from "../resources/textures/pebbles_normal.jpg";
 
-import grassDir from "../resources/textures/grass.png";
+import grassDir from "../resources/textures/grass.jpg";
+
+import woodDir from "../resources/textures/wood.jpg";
 
 export default class Forest {
   constructor(canvas) {
@@ -35,9 +39,55 @@ export default class Forest {
 
     this.scene = new THREE.Scene();
 
+    this.globalOpacity = 0.0;
+
+    const textureLoader = new THREE.TextureLoader();
+
+    // Plane material
+    let texture = textureLoader.load(grassDir);
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set( 4, 4 );
+    this.planeMaterial = new THREE.MeshBasicMaterial({
+      map: texture,
+      side: THREE.DoubleSide,
+      opacity: 0.0,
+      transparent: true
+    });
+
+    // Sideboard material
+    texture = textureLoader.load(woodDir);
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(7, 1);
+    this.sideBoardMaterial = new THREE.MeshBasicMaterial({
+      map: texture,
+      side: THREE.DoubleSide,
+      opacity: 0.0,
+      transparent: true
+    });
+
+    // Bamboo material
+    this.bambooMaterial = new THREE.MeshPhongMaterial({
+      map: textureLoader.load(diffuseDir),
+      specularMap: textureLoader.load(specularDir),
+      normalMap: textureLoader.load(normalDir),
+      alphaMap: textureLoader.load(alphaDir),
+      alphaTest: 0.8,
+      side:THREE.DoubleSide,
+      opacity: 0.0,
+      transparent: true,
+      color: new THREE.Color("rgb(80%, 80%, 80%)")
+    });
+
     const animate = () => {
       this.renderer.render(this.scene, this.camera);
       this.controls.update();
+      if(this.sideBoardMaterial.opacity < 1.0){
+        this.planeMaterial.opacity += 0.01;
+        this.sideBoardMaterial.opacity += 0.01;
+        this.bambooMaterial.opacity += 0.01;
+      }
       requestAnimationFrame(animate);
     }
 
@@ -66,21 +116,13 @@ export default class Forest {
 
   addPlane(){
     const geometry = new THREE.PlaneGeometry(300, 300);
-    const texture = new THREE.TextureLoader().load(grassDir);
-    // const normal = new THREE.TextureLoader().load(pebblesNormalDir);
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set( 4, 4 );
-    const material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide});
-    // const material = new THREE.MeshBasicMaterial({color: "rgb(55, 84, 30)", side: THREE.DoubleSide});
-    const plane = new THREE.Mesh(geometry, material);
+    const plane = new THREE.Mesh(geometry, this.planeMaterial);
     plane.rotation.x = Math.PI/2;
     this.scene.add(plane);
   }
 
   addSides(){
-    const material = new THREE.MeshBasicMaterial({color: "rgb(89, 23, 23)"});
-    const topBoard = new THREE.Mesh(new THREE.BoxGeometry(300, 20, 5), material);
+    const topBoard = new THREE.Mesh(new THREE.BoxGeometry(300, 20, 5), this.sideBoardMaterial);
     topBoard.position.z = -152.5;
     topBoard.position.y = 10;
     this.scene.add(topBoard);
@@ -90,7 +132,7 @@ export default class Forest {
     botBoard.position.y = 10;
     this.scene.add(botBoard);
 
-    const rightBoard = new THREE.Mesh(new THREE.BoxGeometry(310, 20, 5), material);
+    const rightBoard = new THREE.Mesh(new THREE.BoxGeometry(310, 20, 5), this.sideBoardMaterial);
     rightBoard.rotation.y = Math.PI/2;
     rightBoard.position.x = 152.5;
     rightBoard.position.z = 0;
@@ -125,19 +167,11 @@ export default class Forest {
     }
 
     const loader = new FBXLoader();
+    const self = this;
     loader.load(model, function (object) {
-      const diffuse = new THREE.TextureLoader().load(diffuseDir);
-      const specular = new THREE.TextureLoader().load(specularDir);
-      const normal = new THREE.TextureLoader().load(normalDir);
-      const alpha = new THREE.TextureLoader().load(alphaDir);
       object.traverse(function (child) {
         if (child instanceof THREE.Mesh) {
-            child.material.map = diffuse;
-            child.material.specularMap = specular;
-            child.material.normalMap = normal;
-            child.material.alphaMap = alpha;
-            child.material.alphaTest = 0.8;
-            child.material.side = THREE.DoubleSide;
+            child.material = self.bambooMaterial;
         }
       });
 

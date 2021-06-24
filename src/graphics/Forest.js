@@ -3,6 +3,8 @@ To-Do:
   - Loading state?
   - Wood texture
   - New models
+  - Check when all models loaded
+  - Fix bamboo alphaMap for a smooth fade-in
 
 Links of interest:
 https://threejs.org/examples/webgl_water_flowmap.html
@@ -12,18 +14,17 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
-import model from "../resources/models/bamboo/Bamboo.FBX";
-import diffuseDir from "../resources/models/bamboo/diffuse.jpg";
-import specularDir from "../resources/models/bamboo/specular.jpg";
-import normalDir from "../resources/models/bamboo/normal.jpg";
-import alphaDir from "../resources/models/bamboo/alpha.jpg";
 
-import pebblesDir from "../resources/textures/pebbles.jpg";
-import pebblesNormalDir from "../resources/textures/pebbles_normal.jpg";
+import bambooModelDir from "../resources/models/bamboo/Bamboo.FBX";
 
-import grassDir from "../resources/textures/grass.jpg";
+import bambooDir from "../resources/textures/bamboo/diffuse.jpg";
+import specularDir from "../resources/textures/bamboo/specular.jpg";
+import normalDir from "../resources/textures/bamboo/normal.jpg";
+import alphaDir from "../resources/textures/bamboo/alpha.jpg";
 
-import woodDir from "../resources/textures/wood.jpg";
+import grassDir from "../resources/textures/grass/grass.jpg";
+
+import woodDir from "../resources/textures/wood/wood.jpg";
 
 export default class Forest {
   constructor(canvas) {
@@ -67,7 +68,7 @@ export default class Forest {
 
     // Bamboo material
     this.bambooMaterial = new THREE.MeshPhongMaterial({
-      map: textureLoader.load(diffuseDir),
+      map: textureLoader.load(bambooDir),
       specularMap: textureLoader.load(specularDir),
       normalMap: textureLoader.load(normalDir),
       alphaMap: textureLoader.load(alphaDir),
@@ -89,13 +90,12 @@ export default class Forest {
 
   fadeInMaterials(){
     /*
-    You may be wondering why the bamboo material has to be set to 0.8 opacity
-    initially. This is because if the material has an alphaTest value, it will
-    remain transparent until opacity >= alphaTest, so the bamboo material needs
-    a head start when fading in.
-    You may also be wondering why I didn't set the other textures to alphaTest 0.8
-    so they can all just fade in together, and this is because doing so breaks
-    the opacity of materials without alphaMaps.
+    The bamboo material has to be set to 0.8 opacity initially. This is because
+    if the material has an alphaTest value, it will remain transparent until
+    opacity >= alphaTest, so the bamboo material needs a head start when fading
+    in. I didn't set the other textures to alphaTest 0.8 so they can all just
+    fade in together, and this is because doing so breaks the opacity of
+    materials without alphaMaps.
     */
     if(this.bambooMaterial.opacity < 0.8){
       this.bambooMaterial.opacity = 0.8;
@@ -186,12 +186,14 @@ export default class Forest {
 
     const loader = new FBXLoader();
     const self = this;
-    loader.load(model, function (object) {
+    loader.load(bambooModelDir, function (object) {
       object.traverse(function (child) {
         if (child instanceof THREE.Mesh) {
             child.material = self.bambooMaterial;
         }
       });
+
+      console.log(object);
 
       onLoad(object);
     });

@@ -17,7 +17,7 @@ import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 
 import Bamboo from "./models/Bamboo.js";
 
-import bambooModelDir from "../resources/models/bamboo/Bamboo.FBX";
+import bambooModelDir from "../resources/models/bamboo/BambooWithBones.fbx";
 
 import bambooDir from "../resources/textures/bamboo/diffuse.jpg";
 import specularDir from "../resources/textures/bamboo/specular.jpg";
@@ -44,6 +44,17 @@ export default class Forest {
 
     const textureLoader = new THREE.TextureLoader();
 
+    this.bambooMaterial = new THREE.MeshPhongMaterial({
+      map: textureLoader.load(bambooDir),
+      specularMap: textureLoader.load(specularDir),
+      normalMap: textureLoader.load(normalDir),
+      alphaMap: textureLoader.load(alphaDir),
+      alphaTest: 0.8,
+      side:THREE.DoubleSide,
+      opacity: 0.0,
+      transparent: true
+    });
+
     // Plane material
     let texture = textureLoader.load(grassDir);
     texture.wrapS = THREE.RepeatWrapping;
@@ -68,10 +79,10 @@ export default class Forest {
       transparent: true
     });
 
-    this.bamboo = new Bamboo();
+    // this.bamboo = new Bamboo();
 
     const animate = () => {
-      // this.fadeInMaterials();
+      this.fadeInMaterials();
       this.renderer.render(this.scene, this.camera);
       this.controls.update();
       requestAnimationFrame(animate);
@@ -105,7 +116,7 @@ export default class Forest {
   }
 
   render() {
-    this.addFog();
+    // this.addFog();
     this.addLighting();
     this.addPlane();
     this.addSides();
@@ -155,42 +166,49 @@ export default class Forest {
   }
 
   addBamboo(){
-    this.bamboo.load();
-    console.log(this.bamboo);
-    this.scene.add(this.bamboo.getGroup());
-    // const randomNum = (min, max) => {
-    //   return (Math.random() * (max - min) + min).toFixed(4);
-    // }
-    //
-    // const onLoad = object => {
-    //   for(let i=0; i<250; i++){
-    //     const clone = object.children[0].clone();
-    //     clone.position.x = randomNum(-150, 150);
-    //     clone.position.z = randomNum(-150, 150);
-    //
-    //     clone.rotation.z = Math.PI * randomNum(0, 1);
-    //
-    //     const scaleNum = randomNum(0.5, 1.25);
-    //     clone.scale.x = scaleNum;
-    //     clone.scale.y = scaleNum;
-    //     clone.scale.z = scaleNum;
-    //
-    //     this.scene.add(clone);
-    //   }
-    // }
-    //
-    // const loader = new FBXLoader();
-    // const self = this;
-    // loader.load(bambooModelDir, function (object) {
-    //   object.traverse(function (child) {
-    //     if (child instanceof THREE.Mesh) {
-    //         child.material = self.bambooMaterial;
-    //     }
-    //   });
-    //
-    //   console.log(object);
-    //
-    //   onLoad(object);
-    // });
+    // this.bamboo.load();
+    // console.log(this.bamboo);
+    // this.scene.add(this.bamboo.getGroup());
+    const randomNum = (min, max) => {
+      return (Math.random() * (max - min) + min).toFixed(4);
+    }
+
+    const onLoad = group => {
+      for(let i=0; i<250; i++){
+        const clone = group.clone();
+        const skinnedMesh = clone.children[1];
+
+        skinnedMesh.position.x = randomNum(-150, 150);
+        skinnedMesh.position.z = randomNum(-150, 150);
+
+        skinnedMesh.rotation.z = Math.PI * randomNum(0, 1);
+
+        const scaleNum = randomNum(0.5, 1.25);
+        skinnedMesh.scale.x = scaleNum;
+        skinnedMesh.scale.y = scaleNum;
+        skinnedMesh.scale.z = scaleNum;
+
+        console.log(clone);
+        this.scene.add(clone);
+      }
+    }
+
+    const loader = new FBXLoader();
+    const self = this;
+    loader.load(bambooModelDir, function (group) {
+      const boneGroup = group.children[0];
+      const skinnedMesh = group.children[1];
+      skinnedMesh.material = self.bambooMaterial;
+
+      onLoad(group);
+
+      // object.traverse(function (child) {
+      //   if (child instanceof THREE.SkinnedMesh) {
+      //     child.material = self.bambooMaterial;
+      //   }
+      //
+      //   onLoad(child);
+      // });
+    });
   }
 }

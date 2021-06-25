@@ -12,7 +12,7 @@ https://threejs.org/examples/webgl_water_flowmap.html
 
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import { SkeletonUtils } from "three/examples/jsm/utils/SkeletonUtils";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 
 import Bamboo from "./models/Bamboo.js";
@@ -173,22 +173,23 @@ export default class Forest {
       return (Math.random() * (max - min) + min).toFixed(4);
     }
 
-    const onLoad = group => {
+    const onLoad = skinnedMesh => {
       for(let i=0; i<250; i++){
-        const clone = group.clone();
-        const skinnedMesh = clone.children[1];
+        const clone = SkeletonUtils.clone(skinnedMesh);
 
-        skinnedMesh.position.x = randomNum(-150, 150);
-        skinnedMesh.position.z = randomNum(-150, 150);
+        clone.position.x = randomNum(-150, 150);
+        clone.position.z = randomNum(-150, 150);
 
-        skinnedMesh.rotation.z = Math.PI * randomNum(0, 1);
+        clone.rotation.z = Math.PI * randomNum(0, 1);
 
         const scaleNum = randomNum(0.5, 1.25);
-        skinnedMesh.scale.x = scaleNum;
-        skinnedMesh.scale.y = scaleNum;
-        skinnedMesh.scale.z = scaleNum;
+        clone.scale.x = scaleNum;
+        clone.scale.y = scaleNum;
+        clone.scale.z = scaleNum;
 
+        console.log(skinnedMesh);
         console.log(clone);
+
         this.scene.add(clone);
       }
     }
@@ -196,19 +197,10 @@ export default class Forest {
     const loader = new FBXLoader();
     const self = this;
     loader.load(bambooModelDir, function (group) {
-      const boneGroup = group.children[0];
       const skinnedMesh = group.children[1];
       skinnedMesh.material = self.bambooMaterial;
 
-      onLoad(group);
-
-      // object.traverse(function (child) {
-      //   if (child instanceof THREE.SkinnedMesh) {
-      //     child.material = self.bambooMaterial;
-      //   }
-      //
-      //   onLoad(child);
-      // });
+      onLoad(skinnedMesh);
     });
   }
 }

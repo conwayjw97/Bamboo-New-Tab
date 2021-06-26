@@ -11,20 +11,22 @@ https://threejs.org/examples/webgl_water_flowmap.html
 */
 
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { SkeletonUtils } from "three/examples/jsm/utils/SkeletonUtils";
-import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
+import {SkeletonUtils} from "three/examples/jsm/utils/SkeletonUtils";
+import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader.js";
 
-import Bamboo from "./models/Bamboo.js";
+import BambooUtils from "./utils/BambooUtils.js";
+import GrassUtils from "./utils/GrassUtils.js";
+import SideboardUtils from "./utils/SideboardUtils.js";
 
 import bambooModelDir from "../resources/models/bamboo/BambooWithBones.fbx";
+
+import grassDir from "../resources/textures/grass/grass.jpg";
 
 import bambooDir from "../resources/textures/bamboo/diffuse.jpg";
 import specularDir from "../resources/textures/bamboo/specular.jpg";
 import normalDir from "../resources/textures/bamboo/normal.jpg";
 import alphaDir from "../resources/textures/bamboo/alpha.jpg";
-
-import grassDir from "../resources/textures/grass/grass.jpg";
 
 import woodDir from "../resources/textures/wood/wood.jpg";
 
@@ -60,7 +62,7 @@ export default class Forest {
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set( 4, 4 );
-    this.planeMaterial = new THREE.MeshBasicMaterial({
+    this.grassMaterial = new THREE.MeshBasicMaterial({
       map: texture,
       side: THREE.DoubleSide,
       opacity: 0.0,
@@ -72,14 +74,12 @@ export default class Forest {
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(7, 1);
-    this.sideBoardMaterial = new THREE.MeshBasicMaterial({
+    this.sideboardMaterial = new THREE.MeshBasicMaterial({
       map: texture,
       side: THREE.DoubleSide,
       opacity: 0.0,
       transparent: true
     });
-
-    // this.bamboo = new Bamboo();
 
     const animate = () => {
       this.fadeInMaterials();
@@ -100,19 +100,9 @@ export default class Forest {
     fade in together, and this is because doing so breaks the opacity of
     materials without alphaMaps.
     */
-    if(this.bambooMaterial.opacity < 0.8){
-      this.bambooMaterial.opacity = 0.8;
-    }
-    if(this.planeMaterial.opacity < 1.0){
-      this.planeMaterial.opacity += 0.005;
-      this.sideBoardMaterial.opacity += 0.005;
-      this.bambooMaterial.opacity += 0.001;
-    }
-    else if(this.planeMaterial.opacity > 1.0){
-      this.planeMaterial.opacity = 1.0;
-      this.sideBoardMaterial.opacity = 1.0;
-      this.bambooMaterial.opacity = 1.0;
-    }
+    GrassUtils.fadeInMaterial(this.grassMaterial);
+    SideboardUtils.fadeInMaterial(this.sideboardMaterial);
+    BambooUtils.fadeInMaterial(this.bambooMaterial);
   }
 
   render() {
@@ -120,7 +110,10 @@ export default class Forest {
     this.addLighting();
     this.addPlane();
     this.addSides();
-    this.addBamboo();
+
+    GrassUtils.load(this.scene, this.grassMaterial);
+    SideboardUtils.load(this.scene, this.sideBoardMaterial);
+    BambooUtils.load(this.scene, this.bambooMaterial);
   }
 
   addFog(){

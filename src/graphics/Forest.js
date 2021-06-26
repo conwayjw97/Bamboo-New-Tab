@@ -116,7 +116,7 @@ export default class Forest {
   }
 
   render() {
-    // this.addFog();
+    this.addFog();
     this.addLighting();
     this.addPlane();
     this.addSides();
@@ -166,41 +166,33 @@ export default class Forest {
   }
 
   addBamboo(){
-    // this.bamboo.load();
-    // console.log(this.bamboo);
-    // this.scene.add(this.bamboo.getGroup());
-    const randomNum = (min, max) => {
-      return (Math.random() * (max - min) + min).toFixed(4);
-    }
-
-    const onLoad = skinnedMesh => {
-      for(let i=0; i<250; i++){
-        const clone = SkeletonUtils.clone(skinnedMesh);
-
-        clone.position.x = randomNum(-150, 150);
-        clone.position.z = randomNum(-150, 150);
-
-        clone.rotation.z = Math.PI * randomNum(0, 1);
-
-        const scaleNum = randomNum(0.5, 1.25);
-        clone.scale.x = scaleNum;
-        clone.scale.y = scaleNum;
-        clone.scale.z = scaleNum;
-
-        console.log(skinnedMesh);
-        console.log(clone);
-
-        this.scene.add(clone);
-      }
-    }
-
-    const loader = new FBXLoader();
     const self = this;
-    loader.load(bambooModelDir, function (group) {
-      const skinnedMesh = group.children[1];
-      skinnedMesh.material = self.bambooMaterial;
+    const loader = new FBXLoader();
+    loader.load(
+      bambooModelDir,
+      function(object) {
+        object.traverse(function (child) {
+          if (child instanceof THREE.SkinnedMesh) {
+            child.material = self.bambooMaterial;
+          }
+        });
 
-      onLoad(skinnedMesh);
-    });
+        for (let i = 0; i < 250; i++) {
+          const clone = SkeletonUtils.clone(object);
+
+          clone.position.x = THREE.MathUtils.randFloat(-150, 150);
+          clone.position.z = THREE.MathUtils.randFloat(-150, 150);
+
+          clone.rotation.y = Math.PI * THREE.MathUtils.randFloat(0, 1);
+
+          const scaleNum = THREE.MathUtils.randFloat(0.5, 1.25);
+          clone.scale.x = scaleNum;
+          clone.scale.y = scaleNum;
+          clone.scale.z = scaleNum;
+
+          self.scene.add(clone);
+        }
+      }
+    );
   }
 }

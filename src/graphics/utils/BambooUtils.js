@@ -4,8 +4,26 @@ import { SkeletonUtils } from "three/examples/jsm/utils/SkeletonUtils";
 
 import modelDir from "../../resources/models/bamboo/BambooWithBones.fbx";
 
+import diffuseDir from "../../resources/textures/bamboo/diffuse.jpg";
+import specularDir from "../../resources/textures/bamboo/specular.jpg";
+import normalDir from "../../resources/textures/bamboo/normal.jpg";
+import alphaDir from "../../resources/textures/bamboo/alpha.jpg";
+
 export default class BambooUtils {
-  static load(scene, bambooMaterial){
+  static createMaterial(textureLoader){
+    return new THREE.MeshPhongMaterial({
+      map: textureLoader.load(diffuseDir),
+      specularMap: textureLoader.load(specularDir),
+      normalMap: textureLoader.load(normalDir),
+      alphaMap: textureLoader.load(alphaDir),
+      alphaTest: 0.8,
+      side:THREE.DoubleSide,
+      opacity: 0.0,
+      transparent: true
+    });
+  }
+
+  static loadMesh(scene, bambooMaterial){
     new FBXLoader().load(
       modelDir,
       function(object) {

@@ -1,7 +1,22 @@
 import * as THREE from "three";
 
+import woodDir from "../../resources/textures/wood/wood.jpg";
+
 export default class SideboardUtils {
-  static load(scene, material){
+  static createMaterial(textureLoader){
+    const texture = textureLoader.load(woodDir);
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(7, 1);
+    return new THREE.MeshBasicMaterial({
+      map: texture,
+      side: THREE.DoubleSide,
+      opacity: 0.0,
+      transparent: true
+    });
+  }
+
+  static loadMesh(scene, material){
     const topBoard = new THREE.Mesh(new THREE.BoxGeometry(300, 20, 5), material);
     topBoard.position.z = -152.5;
     topBoard.position.y = 10;

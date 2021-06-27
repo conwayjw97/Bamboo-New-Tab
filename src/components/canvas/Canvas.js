@@ -5,17 +5,24 @@ import Forest from "../../graphics/Forest.js";
 
 function Canvas(props) {
   const canvas = useRef(null);
-  const width = window.innerWidth;
-  const height = window.innerHeight;
 
   useEffect(() => {
     const forest = new Forest(canvas.current);
+
+    canvas.current.onmousemove = (e) => {
+      const x = (e.clientX / window.innerWidth) * 2 - 1;
+  	  const y = -(e.clientY / window.innerHeight) * 2 + 1;
+      forest.onMouseMove(x, y);
+    }
+
     forest.render();
   }, []);
 
+
+
   return (
     <div>
-      <canvas ref={canvas} width={width} height={height} className="canvas">
+      <canvas ref={canvas} width={window.innerWidth} height={window.innerHeight} className="canvas">
         <p>Your browser doesn't support canvas.</p>
       </canvas>
     </div>

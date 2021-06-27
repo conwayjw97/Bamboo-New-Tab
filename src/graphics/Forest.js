@@ -108,11 +108,9 @@ export default class Forest {
   render() {
     this.addFog();
     this.addLighting();
-    this.addPlane();
-    this.addSides();
 
     GrassUtils.load(this.scene, this.grassMaterial);
-    SideboardUtils.load(this.scene, this.sideBoardMaterial);
+    SideboardUtils.load(this.scene, this.sideboardMaterial);
     BambooUtils.load(this.scene, this.bambooMaterial);
   }
 

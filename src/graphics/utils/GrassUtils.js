@@ -1,9 +1,9 @@
 import * as THREE from "three";
 
 export default class GrassUtils {
-  static load(scene, grassMaterial){
+  static load(scene, material){
     const geometry = new THREE.PlaneGeometry(300, 300);
-    const plane = new THREE.Mesh(geometry, grassMaterial);
+    const plane = new THREE.Mesh(geometry, material);
     plane.rotation.x = Math.PI/2;
     scene.add(plane);
   }

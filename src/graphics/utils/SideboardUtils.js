@@ -1,11 +1,27 @@
 import * as THREE from "three";
 
 export default class SideboardUtils {
-  static load(scene, sideboardMaterial){
-    const geometry = new THREE.PlaneGeometry(300, 300);
-    const plane = new THREE.Mesh(geometry, sideboardMaterial);
-    plane.rotation.x = Math.PI/2;
-    scene.add(plane);
+  static load(scene, material){
+    const topBoard = new THREE.Mesh(new THREE.BoxGeometry(300, 20, 5), material);
+    topBoard.position.z = -152.5;
+    topBoard.position.y = 10;
+    scene.add(topBoard);
+
+    const botBoard = topBoard.clone();
+    botBoard.position.z = 152.5;
+    botBoard.position.y = 10;
+    scene.add(botBoard);
+
+    const rightBoard = new THREE.Mesh(new THREE.BoxGeometry(310, 20, 5), material);
+    rightBoard.rotation.y = Math.PI/2;
+    rightBoard.position.x = 152.5;
+    rightBoard.position.z = 0;
+    rightBoard.position.y = 10;
+    scene.add(rightBoard);
+
+    const leftBoard = rightBoard.clone();
+    leftBoard.position.x = -152.5;
+    scene.add(leftBoard);
   }
 
   static fadeInMaterial(material){

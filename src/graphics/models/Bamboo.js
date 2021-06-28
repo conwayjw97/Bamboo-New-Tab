@@ -21,6 +21,8 @@ export default class Bamboo {
       opacity: 0.0,
       transparent: true
     });
+
+    this.trees = [];
   }
 
   load(scene){
@@ -48,6 +50,7 @@ export default class Bamboo {
           clone.scale.z = scaleNum;
 
           scene.add(clone);
+          self.trees.push(clone);
         }
       }
     );
@@ -63,5 +66,9 @@ export default class Bamboo {
     else if(this.material.opacity > 1.0){
       this.material.opacity = 1.0;
     }
+  }
+
+  getTrees(){
+    return this.trees;
   }
 }

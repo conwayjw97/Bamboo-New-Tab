@@ -78,13 +78,12 @@ export default class Forest {
   onMouseMove(x, y){
     this.mouse.x = parseFloat(x);
     this.mouse.y = parseFloat(y);
-
     this.raycaster.setFromCamera(this.mouse, this.camera);
-  	const intersects = this.raycaster.intersectObjects(this.scene.children);
-    console.log(intersects);
 
-  	// for ( let i = 0; i < intersects.length; i ++ ) {
-    //   console.log(intersects);
-  	// }
+  	const intersects = this.raycaster.intersectObjects(this.bamboo.getTrees(), true);
+  	for (const intersection of intersects) {
+      console.log(intersection.object.skeleton.bones[0]);
+      intersection.object.skeleton.bones[0].z += Math.PI/2;
+  	}
   }
 }

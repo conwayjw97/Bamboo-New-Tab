@@ -12,9 +12,9 @@ https://threejs.org/examples/webgl_water_flowmap.html
 import * as THREE from "three";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
-import BambooUtils from "./utils/BambooUtils.js";
-import GrassUtils from "./utils/GrassUtils.js";
-import SideboardUtils from "./utils/SideboardUtils.js";
+import Bamboo from "./models/Bamboo.js";
+import Grass from "./models/Grass.js";
+import Sideboard from "./models/Sideboard.js";
 
 export default class Forest {
   constructor(canvas) {
@@ -32,10 +32,13 @@ export default class Forest {
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
 
-    this.createMaterials();
+    const textureLoader = new THREE.TextureLoader();
+    this.bamboo = new Bamboo(textureLoader);
+    this.grass = new Grass(textureLoader);
+    this.sideboard = new Sideboard(textureLoader);
 
     const animate = () => {
-      this.fadeInMaterials();
+      this.fadeIn();
       this.renderer.render(this.scene, this.camera);
       this.controls.update();
       requestAnimationFrame(animate);
@@ -44,14 +47,7 @@ export default class Forest {
     animate();
   }
 
-  createMaterials(){
-    const textureLoader = new THREE.TextureLoader();
-    this.grassMaterial = GrassUtils.createMaterial(textureLoader);
-    this.sideboardMaterial = SideboardUtils.createMaterial(textureLoader);
-    this.bambooMaterial = BambooUtils.createMaterial(textureLoader);
-  }
-
-  fadeInMaterials(){
+  fadeIn(){
     /*
     The bamboo material has to be set to 0.8 opacity initially. This is because
     if the material has an alphaTest value, it will remain transparent until
@@ -60,9 +56,9 @@ export default class Forest {
     fade in together, and this is because doing so breaks the opacity of
     materials without alphaMaps.
     */
-    GrassUtils.fadeInMaterial(this.grassMaterial);
-    SideboardUtils.fadeInMaterial(this.sideboardMaterial);
-    BambooUtils.fadeInMaterial(this.bambooMaterial);
+    this.bamboo.fadeIn();
+    this.grass.fadeIn();
+    this.sideboard.fadeIn();
   }
 
   render() {
@@ -74,20 +70,21 @@ export default class Forest {
     this.scene.background = new THREE.Color(color);
     this.scene.add(new THREE.AmbientLight(0x333333, 15));
 
-    GrassUtils.loadMesh(this.scene, this.grassMaterial);
-    SideboardUtils.loadMesh(this.scene, this.sideboardMaterial);
-    BambooUtils.loadMesh(this.scene, this.bambooMaterial);
+    this.bamboo.load(this.scene);
+    this.grass.load(this.scene);
+    this.sideboard.load(this.scene);
   }
 
   onMouseMove(x, y){
-    this.mouse.x = x;
-    this.mouse.y = y;
+    this.mouse.x = parseFloat(x);
+    this.mouse.y = parseFloat(y);
 
     this.raycaster.setFromCamera(this.mouse, this.camera);
   	const intersects = this.raycaster.intersectObjects(this.scene.children);
+    console.log(intersects);
 
-  	for ( let i = 0; i < intersects.length; i ++ ) {
-      console.log(intersects);
-  	}
+  	// for ( let i = 0; i < intersects.length; i ++ ) {
+    //   console.log(intersects);
+  	// }
   }
 }

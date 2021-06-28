@@ -9,9 +9,9 @@ import specularDir from "../../resources/textures/bamboo/specular.jpg";
 import normalDir from "../../resources/textures/bamboo/normal.jpg";
 import alphaDir from "../../resources/textures/bamboo/alpha.jpg";
 
-export default class BambooUtils {
-  static createMaterial(textureLoader){
-    return new THREE.MeshPhongMaterial({
+export default class Bamboo {
+  constructor(textureLoader) {
+    this.material = new THREE.MeshPhongMaterial({
       map: textureLoader.load(diffuseDir),
       specularMap: textureLoader.load(specularDir),
       normalMap: textureLoader.load(normalDir),
@@ -23,13 +23,14 @@ export default class BambooUtils {
     });
   }
 
-  static loadMesh(scene, bambooMaterial){
+  load(scene){
+    const self = this;
     new FBXLoader().load(
       modelDir,
       function(object) {
         object.traverse(function (child) {
           if (child instanceof THREE.SkinnedMesh) {
-            child.material = bambooMaterial;
+            child.material = self.material;
           }
         });
 
@@ -52,15 +53,15 @@ export default class BambooUtils {
     );
   }
 
-  static fadeInMaterial(material){
-    if(material.opacity < 0.8){
-      material.opacity = 0.8;
+  fadeIn(){
+    if(this.material.opacity < 0.8){
+      this.material.opacity = 0.8;
     }
-    if(material.opacity < 1.0){
-      material.opacity += 0.001;
+    if(this.material.opacity < 1.0){
+      this.material.opacity += 0.001;
     }
-    else if(material.opacity > 1.0){
-      material.opacity = 1.0;
+    else if(this.material.opacity > 1.0){
+      this.material.opacity = 1.0;
     }
   }
 }

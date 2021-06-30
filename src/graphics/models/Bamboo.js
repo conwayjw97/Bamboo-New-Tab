@@ -10,7 +10,7 @@ import normalDir from "../../resources/textures/bamboo/normal.jpg";
 import alphaDir from "../../resources/textures/bamboo/alpha.jpg";
 
 export default class Bamboo {
-  constructor(textureLoader) {
+  constructor(textureLoader, treeCount, width) {
     this.material = new THREE.MeshPhongMaterial({
       map: textureLoader.load(diffuseDir),
       specularMap: textureLoader.load(specularDir),
@@ -21,6 +21,9 @@ export default class Bamboo {
       opacity: 0.0,
       transparent: true
     });
+
+    this.treeCount = treeCount;
+    this.positionRange = width/2;
 
     this.trees = [];
     this.animatedTrees = [];
@@ -38,11 +41,11 @@ export default class Bamboo {
           }
         });
 
-        for (let i = 0; i < 250; i++) {
+        for (let i = 0; i < self.treeCount; i++) {
           const clone = SkeletonUtils.clone(object);
 
-          clone.position.x = THREE.MathUtils.randFloat(-150, 150);
-          clone.position.z = THREE.MathUtils.randFloat(-150, 150);
+          clone.position.x = THREE.MathUtils.randFloat(-self.positionRange, self.positionRange);
+          clone.position.z = THREE.MathUtils.randFloat(-self.positionRange, self.positionRange);
 
           clone.rotation.y = Math.PI * THREE.MathUtils.randFloat(0, 1);
 
@@ -78,7 +81,9 @@ export default class Bamboo {
   }
 
   animateTree(tree){
-    tree.skeleton.bones[3].rotation.x += (Math.PI / 2);
+    for(const bone of tree.skeleton.bones){
+      bone.rotation.x += (Math.PI / 256);
+    }
 
     // this.animatedTrees.push(tree);
     // console.log(this.animatedTrees);

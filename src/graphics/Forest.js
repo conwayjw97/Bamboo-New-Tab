@@ -16,8 +16,6 @@ import Bamboo from "./models/Bamboo.js";
 import Grass from "./models/Grass.js";
 import Sideboard from "./models/Sideboard.js";
 
-const red = new THREE.MeshBasicMaterial({color: "red"});
-
 export default class Forest {
   constructor(canvas) {
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100000);
@@ -36,9 +34,13 @@ export default class Forest {
     this.mouse = new THREE.Vector2();
 
     const textureLoader = new THREE.TextureLoader();
-    this.bamboo = new Bamboo(textureLoader);
-    this.grass = new Grass(textureLoader);
-    this.sideboard = new Sideboard(textureLoader);
+    // const width = 300;
+    // const treeCount = 250;
+    const width = 200;
+    const treeCount = 100;
+    this.bamboo = new Bamboo(textureLoader, treeCount, width);
+    this.grass = new Grass(textureLoader, width);
+    this.sideboard = new Sideboard(textureLoader, width);
 
     this.render();
   }
@@ -98,7 +100,7 @@ export default class Forest {
       // console.log(intersection.object.skeleton.bones[0]);
       // intersection.object.skeleton.bones[0].z += Math.PI/2;
       // console.log(intersection.object);
-      intersection.object.material = red;
+
       this.bamboo.animateTree(intersection.object);
   	}
   }

@@ -53,6 +53,25 @@ export default class Forest {
     loop();
   }
 
+  setup() {
+    // Add fog and lighting
+    const near = 1;
+    const far = 900;
+    const color = 'white';
+    this.scene.fog = new THREE.Fog(color, near, far);
+    this.scene.background = new THREE.Color(color);
+    this.scene.add(new THREE.AmbientLight(0x333333, 15));
+
+    this.bamboo.load(this.scene);
+    this.bamboo.makeVisible();
+
+    this.grass.load(this.scene);
+    this.grass.makeVisible();
+    
+    this.sideboard.load(this.scene);
+    this.sideboard.makeVisible();
+  }
+
   fadeIn(){
     /*
     The bamboo material has to be set to 0.8 opacity initially. This is because
@@ -69,20 +88,6 @@ export default class Forest {
 
   isFadingIn(){
     return this.bamboo.isFadingIn;
-  }
-
-  setup() {
-    // Add fog and lighting
-    const near = 1;
-    const far = 900;
-    const color = 'white';
-    this.scene.fog = new THREE.Fog(color, near, far);
-    this.scene.background = new THREE.Color(color);
-    this.scene.add(new THREE.AmbientLight(0x333333, 15));
-
-    this.bamboo.load(this.scene);
-    this.grass.load(this.scene);
-    this.sideboard.load(this.scene);
   }
 
   onMouseMove(x, y){

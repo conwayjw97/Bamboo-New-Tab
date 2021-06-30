@@ -57,6 +57,10 @@ export default class Bamboo {
     );
   }
 
+  makeVisible(){
+    this.material.opacity = 1.0;
+  }
+
   fadeIn(){
     if(this.material.opacity < 0.8){
       this.fadingIn = true;

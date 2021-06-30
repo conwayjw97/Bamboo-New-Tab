@@ -39,6 +39,10 @@ export default class Sideboard {
     scene.add(leftBoard);
   }
 
+  makeVisible(){
+    this.material.opacity = 1.0;
+  }
+
   fadeIn(){
     if(this.material.opacity < 1.0){
       this.material.opacity += 0.005;

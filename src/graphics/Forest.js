@@ -6,6 +6,7 @@ To-Do:
   - Fix bamboo alphaMap for a smooth fade-in
 
 Links of interest:
+https://stackoverflow.com/questions/54731571/animation-rotation-movement-of-an-object-on-mouse-click
 https://threejs.org/examples/webgl_water_flowmap.html
 */
 
@@ -36,8 +37,8 @@ export default class Forest {
     const textureLoader = new THREE.TextureLoader();
     // const width = 300;
     // const treeCount = 250;
-    const width = 200;
-    const treeCount = 100;
+    const width = 10;
+    const treeCount = 1;
     this.bamboo = new Bamboo(textureLoader, treeCount, width);
     this.grass = new Grass(textureLoader, width);
     this.sideboard = new Sideboard(textureLoader, width);

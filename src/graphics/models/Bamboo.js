@@ -23,6 +23,7 @@ export default class Bamboo {
     });
 
     this.trees = [];
+    this.animatedTrees = [];
     this.isFadingIn = false;
   }
 
@@ -74,6 +75,17 @@ export default class Bamboo {
       this.isFadingIn = false;
       this.material.opacity = 1.0;
     }
+  }
+
+  animateTree(tree){
+    tree.skeleton.bones[3].rotation.x += (Math.PI / 2);
+
+    // this.animatedTrees.push(tree);
+    // console.log(this.animatedTrees);
+
+    // for ( let i = 0; i < mesh.skeleton.bones.length; i ++ ) {
+    //   mesh.skeleton.bones[ i ].rotation.z = Math.sin( time ) * 2 / mesh.skeleton.bones.length;
+    // }
   }
 
   getTrees(){

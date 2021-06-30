@@ -87,7 +87,7 @@ export default class Forest {
     this.grass.fadeIn();
     this.sideboard.fadeIn();
   }
-  
+
   onMouseMove(x, y){
     this.mouse.x = parseFloat(x);
     this.mouse.y = parseFloat(y);
@@ -99,6 +99,7 @@ export default class Forest {
       // intersection.object.skeleton.bones[0].z += Math.PI/2;
       // console.log(intersection.object);
       intersection.object.material = red;
+      this.bamboo.animateTree(intersection.object);
   	}
   }
 }

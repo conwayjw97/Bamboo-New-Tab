@@ -15,7 +15,7 @@ function Canvas(props) {
       forest.onMouseMove(x, y);
     }
 
-    forest.render();
+    forest.setup();
   }, []);
 
 

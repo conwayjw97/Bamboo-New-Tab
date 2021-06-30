@@ -37,14 +37,19 @@ export default class Forest {
     this.grass = new Grass(textureLoader);
     this.sideboard = new Sideboard(textureLoader);
 
-    const animate = () => {
-      this.fadeIn();
-      this.renderer.render(this.scene, this.camera);
-      this.controls.update();
-      requestAnimationFrame(animate);
+    this.render();
+  }
+
+  render(){
+    const self = this;
+
+    function loop(){
+      requestAnimationFrame(loop);
+      self.fadeIn();
+      self.renderer.render(self.scene, self.camera);
     }
 
-    animate();
+    loop();
   }
 
   fadeIn(){
@@ -61,7 +66,7 @@ export default class Forest {
     this.sideboard.fadeIn();
   }
 
-  render() {
+  setup() {
     // Add fog and lighting
     const near = 1;
     const far = 900;

@@ -16,6 +16,8 @@ import Bamboo from "./models/Bamboo.js";
 import Grass from "./models/Grass.js";
 import Sideboard from "./models/Sideboard.js";
 
+const red = new THREE.MeshBasicMaterial({color: "red"});
+
 export default class Forest {
   constructor(canvas) {
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100000);
@@ -67,7 +69,7 @@ export default class Forest {
 
     this.grass.load(this.scene);
     this.grass.makeVisible();
-    
+
     this.sideboard.load(this.scene);
     this.sideboard.makeVisible();
   }
@@ -85,13 +87,8 @@ export default class Forest {
     this.grass.fadeIn();
     this.sideboard.fadeIn();
   }
-
-  isFadingIn(){
-    return this.bamboo.isFadingIn;
-  }
-
+  
   onMouseMove(x, y){
-    console.log("MouseMove");
     this.mouse.x = parseFloat(x);
     this.mouse.y = parseFloat(y);
     this.raycaster.setFromCamera(this.mouse, this.camera);
@@ -100,7 +97,8 @@ export default class Forest {
   	for (const intersection of intersects) {
       // console.log(intersection.object.skeleton.bones[0]);
       // intersection.object.skeleton.bones[0].z += Math.PI/2;
-      console.log(intersection.object);
+      // console.log(intersection.object);
+      intersection.object.material = red;
   	}
   }
 }

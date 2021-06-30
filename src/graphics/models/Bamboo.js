@@ -23,7 +23,7 @@ export default class Bamboo {
     });
 
     this.trees = [];
-    this.fadingIn = false;
+    this.isFadingIn = false;
   }
 
   load(scene){
@@ -59,24 +59,21 @@ export default class Bamboo {
 
   makeVisible(){
     this.material.opacity = 1.0;
+    this.isFadingIn = false;
   }
 
   fadeIn(){
     if(this.material.opacity < 0.8){
-      this.fadingIn = true;
+      this.isFadingIn = true;
       this.material.opacity = 0.8;
     }
     else if(this.material.opacity < 1.0){
       this.material.opacity += 0.001;
     }
     else if(this.material.opacity > 1.0){
-      this.fadingIn = false;
+      this.isFadingIn = false;
       this.material.opacity = 1.0;
     }
-  }
-
-  isFadingIn(){
-    return this.fadingIn;
   }
 
   getTrees(){

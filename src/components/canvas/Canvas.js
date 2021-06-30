@@ -9,18 +9,16 @@ function Canvas(props) {
   useEffect(() => {
     const forest = new Forest(canvas.current);
 
+    forest.setup();
+
     canvas.current.onmousemove = (e) => {
-      console.log(forest.isFadingIn);
-      if(!forest.isFadingIn){
+      if(!forest.bamboo.isFadingIn){
         const x = (e.clientX / window.innerWidth) * 2 - 1;
     	  const y = -(e.clientY / window.innerHeight) * 2 + 1;
         forest.onMouseMove(x, y);
       }
     }
-
-    forest.setup();
   }, []);
-
 
 
   return (

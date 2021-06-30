@@ -27,6 +27,7 @@ export default class Forest {
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.target = new THREE.Vector3(0, 110, 0);
+    this.controls.update();
 
     this.scene = new THREE.Scene();
     this.raycaster = new THREE.Raycaster();
@@ -85,6 +86,7 @@ export default class Forest {
   }
 
   onMouseMove(x, y){
+    console.log("MouseMove");
     this.mouse.x = parseFloat(x);
     this.mouse.y = parseFloat(y);
     this.raycaster.setFromCamera(this.mouse, this.camera);
@@ -92,7 +94,8 @@ export default class Forest {
   	const intersects = this.raycaster.intersectObjects(this.bamboo.getTrees(), true);
   	for (const intersection of intersects) {
       // console.log(intersection.object.skeleton.bones[0]);
-      intersection.object.skeleton.bones[0].z += Math.PI/2;
+      // intersection.object.skeleton.bones[0].z += Math.PI/2;
+      console.log(intersection.object);
   	}
   }
 }

@@ -10,9 +10,11 @@ function Canvas(props) {
     const forest = new Forest(canvas.current);
 
     canvas.current.onmousemove = (e) => {
-      const x = (e.clientX / window.innerWidth) * 2 - 1;
-  	  const y = -(e.clientY / window.innerHeight) * 2 + 1;
-      forest.onMouseMove(x, y);
+      if(!forest.isFadingIn){
+        const x = (e.clientX / window.innerWidth) * 2 - 1;
+    	  const y = -(e.clientY / window.innerHeight) * 2 + 1;
+        forest.onMouseMove(x, y);
+      }
     }
 
     forest.setup();

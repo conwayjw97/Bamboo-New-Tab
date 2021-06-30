@@ -23,6 +23,7 @@ export default class Bamboo {
     });
 
     this.trees = [];
+    this.isFadingIn = false;
   }
 
   load(scene){
@@ -36,7 +37,7 @@ export default class Bamboo {
           }
         });
 
-        for (let i = 0; i < 250; i++) {
+        for (let i = 0; i < 100; i++) {
           const clone = SkeletonUtils.clone(object);
 
           clone.position.x = THREE.MathUtils.randFloat(-150, 150);
@@ -58,14 +59,20 @@ export default class Bamboo {
 
   fadeIn(){
     if(this.material.opacity < 0.8){
+      this.isFadingIn = true;
       this.material.opacity = 0.8;
     }
-    if(this.material.opacity < 1.0){
+    else if(this.material.opacity < 1.0){
       this.material.opacity += 0.001;
     }
     else if(this.material.opacity > 1.0){
+      this.isFadingIn = false;
       this.material.opacity = 1.0;
     }
+  }
+
+  isFadingIn(){
+    return this.isFadingIn;
   }
 
   getTrees(){

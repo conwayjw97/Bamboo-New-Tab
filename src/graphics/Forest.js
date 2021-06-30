@@ -66,6 +66,10 @@ export default class Forest {
     this.sideboard.fadeIn();
   }
 
+  isFadingIn(){
+    return this.bamboo.isFadingIn;
+  }
+
   setup() {
     // Add fog and lighting
     const near = 1;
@@ -87,7 +91,7 @@ export default class Forest {
 
   	const intersects = this.raycaster.intersectObjects(this.bamboo.getTrees(), true);
   	for (const intersection of intersects) {
-      console.log(intersection.object.skeleton.bones[0]);
+      // console.log(intersection.object.skeleton.bones[0]);
       intersection.object.skeleton.bones[0].z += Math.PI/2;
   	}
   }

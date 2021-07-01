@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+
 import "./Canvas.css";
 
 import Forest from "../../graphics/Forest.js";
@@ -7,7 +8,7 @@ function Canvas(props) {
   const canvas = useRef(null);
 
   useEffect(() => {
-    const forest = new Forest(canvas.current);
+    const forest = new Forest(canvas.current, props.data);
 
     forest.setup();
 

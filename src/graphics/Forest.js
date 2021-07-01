@@ -18,7 +18,7 @@ import Grass from "./models/Grass.js";
 import Sideboard from "./models/Sideboard.js";
 
 export default class Forest {
-  constructor(canvas) {
+  constructor(canvas, data) {
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100000);
     this.camera.position.set(0, 250, 500);
 
@@ -34,12 +34,13 @@ export default class Forest {
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
 
-    const textureLoader = new THREE.TextureLoader();
     // const width = 300;
     // const treeCount = 250;
-    const width = 200;
-    const height = 25;
-    const treeCount = 100;
+    const width = data.width;
+    const height = data.height;
+    const treeCount = data.trees;
+
+    const textureLoader = new THREE.TextureLoader();
     this.bamboo = new Bamboo(textureLoader, treeCount, width, height);
     this.grass = new Grass(textureLoader, width, height);
     this.sideboard = new Sideboard(textureLoader, width, height);

@@ -10,7 +10,7 @@ import normalDir from "../../resources/textures/bamboo/normal.jpg";
 import alphaDir from "../../resources/textures/bamboo/alpha.jpg";
 
 export default class Bamboo {
-  constructor(textureLoader, treeCount, width) {
+  constructor(textureLoader, treeCount, width, height) {
     this.material = new THREE.MeshPhongMaterial({
       map: textureLoader.load(diffuseDir),
       specularMap: textureLoader.load(specularDir),
@@ -23,7 +23,8 @@ export default class Bamboo {
     });
 
     this.treeCount = treeCount;
-    this.positionRange = width/2;
+    this.xPositionRange = width/2;
+    this.zPositionRange = height/2;
 
     this.trees = [];
     this.animatedTrees = [];
@@ -44,8 +45,8 @@ export default class Bamboo {
         for (let i = 0; i < self.treeCount; i++) {
           const clone = SkeletonUtils.clone(object);
 
-          clone.position.x = THREE.MathUtils.randFloat(-self.positionRange, self.positionRange);
-          clone.position.z = THREE.MathUtils.randFloat(-self.positionRange, self.positionRange);
+          clone.position.x = THREE.MathUtils.randFloat(-self.xPositionRange, self.xPositionRange);
+          clone.position.z = THREE.MathUtils.randFloat(-self.zPositionRange, self.zPositionRange);
 
           clone.rotation.y = Math.PI * THREE.MathUtils.randFloat(0, 1);
 

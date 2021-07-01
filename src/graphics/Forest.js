@@ -37,11 +37,12 @@ export default class Forest {
     const textureLoader = new THREE.TextureLoader();
     // const width = 300;
     // const treeCount = 250;
-    const width = 10;
-    const treeCount = 1;
-    this.bamboo = new Bamboo(textureLoader, treeCount, width);
-    this.grass = new Grass(textureLoader, width);
-    this.sideboard = new Sideboard(textureLoader, width);
+    const width = 200;
+    const height = 25;
+    const treeCount = 100;
+    this.bamboo = new Bamboo(textureLoader, treeCount, width, height);
+    this.grass = new Grass(textureLoader, width, height);
+    this.sideboard = new Sideboard(textureLoader, width, height);
 
     this.render();
   }

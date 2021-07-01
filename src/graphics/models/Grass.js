@@ -3,7 +3,7 @@ import * as THREE from "three";
 import grassDir from "../../resources/textures/grass/grass.jpg";
 
 export default class Grass {
-  constructor(textureLoader, width) {
+  constructor(textureLoader, width, height) {
     const texture = textureLoader.load(grassDir);
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
@@ -16,10 +16,11 @@ export default class Grass {
     });
 
     this.width = width;
+    this.width = height;
   }
 
   load(scene){
-    const geometry = new THREE.PlaneGeometry(this.width, this.width);
+    const geometry = new THREE.PlaneGeometry(this.width, this.height);
     const plane = new THREE.Mesh(geometry, this.material);
     plane.rotation.x = Math.PI/2;
     scene.add(plane);

@@ -15,7 +15,11 @@ function App() {
   });
 
   const handleUpdate = (update) => {
-    console.log(update);
+    setData({
+      width: update.width,
+      height: update.height,
+      trees: update.trees
+    });
   }
 
   return (

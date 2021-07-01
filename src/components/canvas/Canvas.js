@@ -6,20 +6,26 @@ import Forest from "../../graphics/Forest.js";
 
 function Canvas(props) {
   const canvas = useRef(null);
+  const forest = useRef(null);
 
   useEffect(() => {
-    const forest = new Forest(canvas.current, props.data);
-
-    forest.setup();
+    forest.current = new Forest(canvas.current, props.data);
+    forest.current.setup();
 
     canvas.current.onmousemove = (e) => {
-      if(!forest.bamboo.isFadingIn){
+      if(!forest.current.bamboo.isFadingIn){
         const x = (e.clientX / window.innerWidth) * 2 - 1;
     	  const y = -(e.clientY / window.innerHeight) * 2 + 1;
-        forest.onMouseMove(x, y);
+        forest.current.onMouseMove(x, y);
       }
     }
   }, []);
+
+  // VERY inconvenient, find a more dynamic method to update scene for data change
+  useEffect(() => {
+    forest.current = new Forest(canvas.current, props.data);
+    forest.current.setup();
+  }, [props.data]);
 
 
   return (

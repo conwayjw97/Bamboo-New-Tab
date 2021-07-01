@@ -19,6 +19,8 @@ import Sideboard from "./models/Sideboard.js";
 
 export default class Forest {
   constructor(canvas, data) {
+    this.data = data;
+
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100000);
     this.camera.position.set(0, 250, 500);
 
@@ -48,6 +50,17 @@ export default class Forest {
     this.render();
   }
 
+  update(data){
+    const width = data.width;
+    const height = data.height;
+    const treeCount = data.trees;
+    
+    const textureLoader = new THREE.TextureLoader();
+    this.bamboo = new Bamboo(textureLoader, treeCount, width, height);
+    this.grass = new Grass(textureLoader, width, height);
+    this.sideboard = new Sideboard(textureLoader, width, height);
+  }
+
   render(){
     const self = this;
 
@@ -55,6 +68,7 @@ export default class Forest {
       requestAnimationFrame(loop);
       self.fadeIn();
       self.renderer.render(self.scene, self.camera);
+      // console.log(self.data);
     }
 
     loop();

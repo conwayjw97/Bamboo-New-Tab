@@ -41,7 +41,6 @@ export default class Forest {
   }
 
   render(){
-    this.animationFrameId = null;
     const self = this;
 
     function loop(){
@@ -120,7 +119,7 @@ export default class Forest {
       // intersection.object.skeleton.bones[0].z += Math.PI/2;
       // console.log(intersection.object);
 
-      this.bamboo.animateTree(intersection.object);
+      // this.bamboo.animateTree(intersection.object);
   	}
   }
 }

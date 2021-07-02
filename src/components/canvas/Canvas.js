@@ -9,8 +9,7 @@ function Canvas(props) {
   const forest = useRef(null);
 
   useEffect(() => {
-    forest.current = new Forest(canvas.current, props.data);
-    forest.current.setup();
+    forest.current = new Forest(canvas.current, props.settings);
 
     canvas.current.onmousemove = (e) => {
       if(!forest.current.bamboo.isFadingIn){
@@ -24,7 +23,7 @@ function Canvas(props) {
   // VERY inconvenient, find a more dynamic method to update scene for data change
   useEffect(() => {
     if(props.updateCount>0){
-      forest.current.update(props.data);
+      forest.current.update(props.settings);
     }
   }, [props.updateCount]);
 

@@ -18,7 +18,7 @@ import Grass from "./models/Grass.js";
 import Sideboard from "./models/Sideboard.js";
 
 export default class Forest {
-  constructor(canvas, data) {
+  constructor(canvas, settings) {
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100000);
     this.camera.position.set(0, 250, 500);
 
@@ -33,15 +33,10 @@ export default class Forest {
     this.scene = new THREE.Scene();
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
-
-    // const width = 300;
-    // const treeCount = 250;
-
     this.textureLoader = new THREE.TextureLoader();
-    this.bamboo = new Bamboo(this.textureLoader, data.trees, data.width, data.height);
-    this.grass = new Grass(this.textureLoader, data.width, data.height);
-    this.sideboard = new Sideboard(this.textureLoader, data.width, data.height);
 
+    this.initModels(settings);
+    this.loadScene();
     this.render();
   }
 
@@ -58,32 +53,26 @@ export default class Forest {
     loop();
   }
 
-  setup() {
-    // Add fog and lighting
+  update(settings){
+    this.clearScene();
+    this.initModels(settings);
+    this.loadScene();
+  }
+
+  initModels(settings){
+    this.bamboo = new Bamboo(this.textureLoader, settings.trees, settings.width, settings.height);
+    this.grass = new Grass(this.textureLoader, settings.width, settings.height);
+    this.sideboard = new Sideboard(this.textureLoader, settings.width, settings.height);
+  }
+
+  loadScene() {
     const near = 1;
     const far = 900;
     const color = 'white';
     this.scene.fog = new THREE.Fog(color, near, far);
     this.scene.background = new THREE.Color(color);
+
     this.scene.add(new THREE.AmbientLight(0x333333, 15));
-
-    this.bamboo.load(this.scene);
-    this.bamboo.makeVisible();
-
-    this.grass.load(this.scene);
-    this.grass.makeVisible();
-
-    this.sideboard.load(this.scene);
-    this.sideboard.makeVisible();
-  }
-
-  update(data){
-    this.clearScene();
-    this.scene.add(new THREE.AmbientLight(0x333333, 15));
-
-    this.bamboo = new Bamboo(this.textureLoader, data.trees, data.width, data.height);
-    this.grass = new Grass(this.textureLoader, data.width, data.height);
-    this.sideboard = new Sideboard(this.textureLoader, data.width, data.height);
 
     this.bamboo.load(this.scene);
     this.bamboo.makeVisible();
@@ -97,7 +86,6 @@ export default class Forest {
 
   clearScene(){
     let sceneMeshes = [];
-
     this.scene.traverse(function(child){
         sceneMeshes.push(child);
     });

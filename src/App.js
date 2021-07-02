@@ -8,7 +8,7 @@ import DatGui, { DatButton, DatNumber } from "react-dat-gui";
 import "react-dat-gui/dist/index.css";
 
 function App() {
-  const [data, setData] = useState({
+  const [settings, setSettings] = useState({
     width: 100,
     height: 100,
     trees: 100
@@ -16,7 +16,7 @@ function App() {
   const [updateCount, setUpdateCount] = useState(0);
 
   const handleChange = (datgui) => {
-    setData({
+    setSettings({
       width: datgui.width,
       height: datgui.height,
       trees: datgui.trees
@@ -29,13 +29,13 @@ function App() {
 
   return (
     <div className="App">
-      <DatGui data={data} onUpdate={handleChange}>
+      <DatGui data={settings} onUpdate={handleChange}>
         <DatNumber path="width" label="Width" min={10} max={800} step={1}/>
         <DatNumber path="height" label="Height" min={10} max={800} step={1}/>
         <DatNumber path="trees" label="Trees" min={1} max={500} step={1}/>
         <DatButton label="Update" onClick={handleUpdate}/>
       </DatGui>
-      <Canvas data={data} updateCount={updateCount}/>
+      <Canvas settings={settings} updateCount={updateCount}/>
     </div>
   );
 }

@@ -4,32 +4,38 @@ import "./App.css";
 
 import Canvas from "./components/canvas/Canvas.js";
 
-import DatGui, { DatBoolean, DatColor, DatNumber, DatString } from "react-dat-gui";
+import DatGui, { DatButton, DatNumber } from "react-dat-gui";
 import "react-dat-gui/dist/index.css";
 
 function App() {
   const [data, setData] = useState({
-    width: 200,
-    height: 25,
+    width: 100,
+    height: 100,
     trees: 100
   });
+  const [updateCount, setUpdateCount] = useState(0);
 
-  const handleUpdate = (update) => {
+  const handleChange = (datgui) => {
     setData({
-      width: update.width,
-      height: update.height,
-      trees: update.trees
+      width: datgui.width,
+      height: datgui.height,
+      trees: datgui.trees
     });
+  }
+
+  const handleUpdate = () => {
+    setUpdateCount(updateCount + 1);
   }
 
   return (
     <div className="App">
-      <DatGui data={data} onUpdate={handleUpdate}>
-        <DatNumber path="width" label="Width" min={10} max={800} step={1} />
-        <DatNumber path="height" label="Height" min={10} max={800} step={1} />
-        <DatNumber path="trees" label="Trees" min={1} max={500} step={1} />
+      <DatGui data={data} onUpdate={handleChange}>
+        <DatNumber path="width" label="Width" min={10} max={800} step={1}/>
+        <DatNumber path="height" label="Height" min={10} max={800} step={1}/>
+        <DatNumber path="trees" label="Trees" min={1} max={500} step={1}/>
+        <DatButton label="Update" onClick={handleUpdate}/>
       </DatGui>
-      <Canvas data={data}/>
+      <Canvas data={data} updateCount={updateCount}/>
     </div>
   );
 }

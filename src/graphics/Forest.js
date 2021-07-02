@@ -19,8 +19,6 @@ import Sideboard from "./models/Sideboard.js";
 
 export default class Forest {
   constructor(canvas, data) {
-    this.data = data;
-
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100000);
     this.camera.position.set(0, 250, 500);
 
@@ -38,37 +36,23 @@ export default class Forest {
 
     // const width = 300;
     // const treeCount = 250;
-    const width = data.width;
-    const height = data.height;
-    const treeCount = data.trees;
 
-    const textureLoader = new THREE.TextureLoader();
-    this.bamboo = new Bamboo(textureLoader, treeCount, width, height);
-    this.grass = new Grass(textureLoader, width, height);
-    this.sideboard = new Sideboard(textureLoader, width, height);
+    this.textureLoader = new THREE.TextureLoader();
+    this.bamboo = new Bamboo(this.textureLoader, data.trees, data.width, data.height);
+    this.grass = new Grass(this.textureLoader, data.width, data.height);
+    this.sideboard = new Sideboard(this.textureLoader, data.width, data.height);
 
     this.render();
   }
 
-  update(data){
-    const width = data.width;
-    const height = data.height;
-    const treeCount = data.trees;
-    
-    const textureLoader = new THREE.TextureLoader();
-    this.bamboo = new Bamboo(textureLoader, treeCount, width, height);
-    this.grass = new Grass(textureLoader, width, height);
-    this.sideboard = new Sideboard(textureLoader, width, height);
-  }
-
   render(){
+    this.animationFrameId = null;
     const self = this;
 
     function loop(){
-      requestAnimationFrame(loop);
+      self.animationFrameId = requestAnimationFrame(loop);
       self.fadeIn();
       self.renderer.render(self.scene, self.camera);
-      // console.log(self.data);
     }
 
     loop();
@@ -91,6 +75,36 @@ export default class Forest {
 
     this.sideboard.load(this.scene);
     this.sideboard.makeVisible();
+  }
+
+  update(data){
+    this.clearScene();
+    this.scene.add(new THREE.AmbientLight(0x333333, 15));
+
+    this.bamboo = new Bamboo(this.textureLoader, data.trees, data.width, data.height);
+    this.grass = new Grass(this.textureLoader, data.width, data.height);
+    this.sideboard = new Sideboard(this.textureLoader, data.width, data.height);
+
+    this.bamboo.load(this.scene);
+    this.bamboo.makeVisible();
+
+    this.grass.load(this.scene);
+    this.grass.makeVisible();
+
+    this.sideboard.load(this.scene);
+    this.sideboard.makeVisible();
+  }
+
+  clearScene(){
+    let sceneMeshes = [];
+
+    this.scene.traverse(function(child){
+        sceneMeshes.push(child);
+    });
+
+    for(const sceneMesh of sceneMeshes){
+        this.scene.remove(sceneMesh);
+    }
   }
 
   fadeIn(){

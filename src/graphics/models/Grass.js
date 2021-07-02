@@ -16,7 +16,7 @@ export default class Grass {
     });
 
     this.width = width;
-    this.width = height;
+    this.height = height;
   }
 
   load(scene){

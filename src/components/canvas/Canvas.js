@@ -23,9 +23,10 @@ function Canvas(props) {
 
   // VERY inconvenient, find a more dynamic method to update scene for data change
   useEffect(() => {
-    forest.current = new Forest(canvas.current, props.data);
-    forest.current.setup();
-  }, [props.data]);
+    if(props.updateCount>0){
+      forest.current.update(props.data);
+    }
+  }, [props.updateCount]);
 
 
   return (

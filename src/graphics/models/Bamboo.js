@@ -49,7 +49,7 @@ export default class Bamboo {
           clone.position.x = THREE.MathUtils.randFloat(-self.xPositionRange, self.xPositionRange);
           clone.position.z = THREE.MathUtils.randFloat(-self.zPositionRange, self.zPositionRange);
 
-          clone.rotation.y = Math.PI * THREE.MathUtils.randFloat(0, 1);
+          clone.rotation.y = (2 * Math.PI) * THREE.MathUtils.randFloat(0, 1);
 
           const scaleNum = THREE.MathUtils.randFloat(0.5, 1.25);
           clone.scale.x = scaleNum;
@@ -89,7 +89,7 @@ export default class Bamboo {
       for(const tree of this.trees){
         const skinnedMesh = tree.children[1];
         for(let i=0, bone=skinnedMesh.skeleton.bones[i]; i<skinnedMesh.skeleton.bones.length; i++){
-          bone.rotation.x = (Math.sin(this.swayAngle) * swayLimit) + (Math.PI/2);
+          bone.rotation.y = (Math.sin(this.swayAngle) * swayLimit) + (Math.PI/2);
         }
       }
       this.swayAngle += swayStep;

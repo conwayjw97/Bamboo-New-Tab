@@ -11,7 +11,7 @@ function App() {
   const [settings, setSettings] = useState({
     width: 300,
     height: 300,
-    trees: 400
+    trees: 1
   });
   const [updateCount, setUpdateCount] = useState(0);
 
@@ -30,9 +30,9 @@ function App() {
   return (
     <div className="App">
       <DatGui data={settings} onUpdate={handleChange}>
-        <DatNumber path="width" label="Width" min={10} max={800} step={1}/>
-        <DatNumber path="height" label="Height" min={10} max={800} step={1}/>
-        <DatNumber path="trees" label="Trees" min={1} max={500} step={1}/>
+        <DatNumber path="width" label="Width" min={10} max={1000} step={1}/>
+        <DatNumber path="height" label="Height" min={10} max={1000} step={1}/>
+        <DatNumber path="trees" label="Trees" min={1} max={1000} step={1}/>
         <DatButton label="Update" onClick={handleUpdate}/>
       </DatGui>
       <Canvas settings={settings} updateCount={updateCount}/>

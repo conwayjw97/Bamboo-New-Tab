@@ -81,6 +81,31 @@ export default class Bamboo {
     }
   }
 
+  swayAnimation(){
+    const fastStep = Math.PI / 512;
+    const fastStepLimit = fastStep * 10;
+    const slowStep = Math.PI / 1024;
+    const slowStepLimit = fastStep * 20;
+    console.log(fastStepLimit);
+    console.log(slowStepLimit);
+    if(this.trees !== []){
+      for(const tree of this.trees){
+          const skinnedMesh = tree.children[1];
+          for(const bone of skinnedMesh.skeleton.bones){
+            if(bone.rotation.x < fastStepLimit){
+              console.log("Fast step");
+              bone.rotation.x += fastStep;
+            }
+            else if (bone.rotation.x < slowStepLimit){
+              console.log("Slow step");
+              bone.rotation.x += slowStep;
+            }
+          }
+      }
+
+    }
+  }
+
   animateTree(tree){
     for(const bone of tree.skeleton.bones){
       bone.rotation.x += (Math.PI / 256);

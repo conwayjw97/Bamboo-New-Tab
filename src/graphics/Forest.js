@@ -46,6 +46,7 @@ export default class Forest {
     function loop(){
       self.animationFrameId = requestAnimationFrame(loop);
       self.fadeIn();
+      self.bamboo.swayAnimation();
       self.renderer.render(self.scene, self.camera);
     }
 
@@ -76,11 +77,11 @@ export default class Forest {
     this.bamboo.load(this.scene);
     this.bamboo.makeVisible();
 
-    this.grass.load(this.scene);
-    this.grass.makeVisible();
-
-    this.sideboard.load(this.scene);
-    this.sideboard.makeVisible();
+    // this.grass.load(this.scene);
+    // this.grass.makeVisible();
+    //
+    // this.sideboard.load(this.scene);
+    // this.sideboard.makeVisible();
   }
 
   clearScene(){

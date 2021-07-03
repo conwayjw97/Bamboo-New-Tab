@@ -26,6 +26,7 @@ export default class Bamboo {
     this.xPositionRange = width/2;
     this.zPositionRange = height/2;
 
+    this.swayAngle = 0;
     this.trees = [];
     this.animatedTrees = [];
     this.isFadingIn = false;
@@ -82,27 +83,17 @@ export default class Bamboo {
   }
 
   swayAnimation(){
-    const fastStep = Math.PI / 512;
-    const fastStepLimit = fastStep * 10;
-    const slowStep = Math.PI / 1024;
-    const slowStepLimit = fastStep * 20;
-    console.log(fastStepLimit);
-    console.log(slowStepLimit);
     if(this.trees !== []){
+      const swayLimit = (Math.PI / 512) * 20;
+      const swayStep = (Math.PI / 360);
       for(const tree of this.trees){
-          const skinnedMesh = tree.children[1];
-          for(const bone of skinnedMesh.skeleton.bones){
-            if(bone.rotation.x < fastStepLimit){
-              console.log("Fast step");
-              bone.rotation.x += fastStep;
-            }
-            else if (bone.rotation.x < slowStepLimit){
-              console.log("Slow step");
-              bone.rotation.x += slowStep;
-            }
-          }
-      }
+        const skinnedMesh = tree.children[1];
+        for(let i=1, bone=skinnedMesh.skeleton.bones[i]; i<skinnedMesh.skeleton.bones.length; i++){
 
+          bone.rotation.x = Math.sin(this.swayAngle) * swayLimit;
+        }
+      }
+      this.swayAngle += swayStep;
     }
   }
 

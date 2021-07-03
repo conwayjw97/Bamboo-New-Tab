@@ -11,7 +11,7 @@ function App() {
   const [settings, setSettings] = useState({
     width: 300,
     height: 300,
-    trees: 1
+    trees: 400
   });
   const [updateCount, setUpdateCount] = useState(0);
 

@@ -88,9 +88,8 @@ export default class Bamboo {
       const swayStep = (Math.PI / 360);
       for(const tree of this.trees){
         const skinnedMesh = tree.children[1];
-        for(let i=1, bone=skinnedMesh.skeleton.bones[i]; i<skinnedMesh.skeleton.bones.length; i++){
-
-          bone.rotation.x = Math.sin(this.swayAngle) * swayLimit;
+        for(let i=0, bone=skinnedMesh.skeleton.bones[i]; i<skinnedMesh.skeleton.bones.length; i++){
+          bone.rotation.x = (Math.sin(this.swayAngle) * swayLimit) + (Math.PI/2);
         }
       }
       this.swayAngle += swayStep;

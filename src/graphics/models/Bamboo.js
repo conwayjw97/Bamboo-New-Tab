@@ -49,7 +49,8 @@ export default class Bamboo {
           clone.position.x = THREE.MathUtils.randFloat(-self.xPositionRange, self.xPositionRange);
           clone.position.z = THREE.MathUtils.randFloat(-self.zPositionRange, self.zPositionRange);
 
-          clone.rotation.y = (2 * Math.PI) * THREE.MathUtils.randFloat(0, 1);
+          // clone.rotation.y = (2 * Math.PI) * THREE.MathUtils.randFloat(0, 1);
+          clone.rotation.y = (Math.PI/2) * THREE.MathUtils.randFloat(0, 1);
 
           const scaleNum = THREE.MathUtils.randFloat(0.5, 1.25);
           clone.scale.x = scaleNum;
@@ -85,11 +86,20 @@ export default class Bamboo {
   swayAnimation(){
     if(this.trees !== []){
       const swayLimit = (Math.PI / 512) * 20;
-      const swayStep = (Math.PI / 360);
+      const swayStep = (Math.PI / 180);
       for(const tree of this.trees){
+        const treeRotation = tree.rotation.y;
         const skinnedMesh = tree.children[1];
+        const swayRotation = (Math.sin(this.swayAngle) * swayLimit);
+        const xSwayRatio = Math.cos(treeRotation);
+        const ySwayRatio = Math.sin(treeRotation);
+
         for(let i=0, bone=skinnedMesh.skeleton.bones[i]; i<skinnedMesh.skeleton.bones.length; i++){
-          bone.rotation.y = (Math.sin(this.swayAngle) * swayLimit) + (Math.PI/2);
+          bone.rotation.y = swayRotation;
+          bone.rotation.z = swayRotation;
+
+          // bone.rotation.x = swayRotation * xSwayRatio;
+          // bone.rotation.y = swayRotation * ySwayRatio;
         }
       }
       this.swayAngle += swayStep;
@@ -107,9 +117,5 @@ export default class Bamboo {
     // for ( let i = 0; i < mesh.skeleton.bones.length; i ++ ) {
     //   mesh.skeleton.bones[ i ].rotation.z = Math.sin( time ) * 2 / mesh.skeleton.bones.length;
     // }
-  }
-
-  getTrees(){
-    return this.trees;
   }
 }

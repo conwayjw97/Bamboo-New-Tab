@@ -55,7 +55,6 @@ export default class Bamboo {
           scene.add(clone);
           self.trees.push(clone);
         }
-        console.log(self.trees);
       }
     );
   }
@@ -81,21 +80,19 @@ export default class Bamboo {
 
   swayAnimation(){
     if(this.trees !== []){
-      const swayLimit = (Math.PI / 512) * 20;
-      const swayStep = (Math.PI / 180);
+      const swayLimit = (Math.PI / 8192);
+      const swayStep = (Math.PI / 360);
+      const swayRotation = (Math.sin(this.swayAngle) * swayLimit);
       for(const tree of this.trees){
         const treeRotation = tree.rotation.y;
         const skinnedMesh = tree.children[1];
-        const swayRotation = (Math.sin(this.swayAngle) * swayLimit);
         const xSwayRatio = Math.cos(treeRotation);
-        const ySwayRatio = Math.sin(treeRotation);
+        const zSwayRatio = Math.sin(treeRotation);
 
-        for(let i=0, bone=skinnedMesh.skeleton.bones[i]; i<skinnedMesh.skeleton.bones.length; i++){
-          bone.rotation.y = Math.PI/2;
-          // bone.rotation.z = Math.PI/2;
-
-          // bone.rotation.x = swayRotation * xSwayRatio;
-          // bone.rotation.y = swayRotation * ySwayRatio;
+        for(let i=0; i<skinnedMesh.skeleton.bones.length; i++){
+          const bone = skinnedMesh.skeleton.bones[i];
+          bone.rotation.x += swayRotation;
+          bone.rotation.z = swayRotation;
         }
       }
       this.swayAngle += swayStep;
@@ -103,11 +100,16 @@ export default class Bamboo {
   }
 
   mouseOverAnimation(tree){
-    const skinnedMesh = tree.children[1];
-    // tree.parent.rotation.y+= (Math.PI / 30);
-    // for(const bone of tree.skeleton.bones){
-    //   bone.rotation.z += (Math.PI / 30);
+    // const swayLimit = (Math.PI / 4096);
+    // const swayStep = (Math.PI / 180);
+    // const swayRotation = (Math.sin(this.swayAngle) * swayLimit);
+    //
+    // const skinnedMesh = tree.children[1];
+    // for(const bone of skinnedMesh.skeleton.bones){
+    //   bone.rotation.x += swayRotation;
     // }
+    //
+    // this.swayAngle += swayStep;
 
     // this.animatedTrees.push(tree);
     // console.log(this.animatedTrees);

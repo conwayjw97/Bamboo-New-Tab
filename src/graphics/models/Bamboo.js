@@ -34,8 +34,17 @@ export default class Bamboo {
       modelDir,
       function(object) {
         object.traverse(function (child) {
+          console.log(child);
           if (child instanceof THREE.SkinnedMesh) {
             child.material = self.material;
+          }
+          if (child instanceof THREE.Bone) {
+            if(child.name ==  "1"){
+              child.rotation.set(Math.PI/2, 0, 0); // For some reason bone 1's default x orientation is 90 degrees clockwise
+            }
+            else{
+              child.rotation.set(0, 0, 0);
+            }
           }
         });
 
@@ -86,13 +95,16 @@ export default class Bamboo {
       for(const tree of this.trees){
         const treeRotation = tree.rotation.y;
         const skinnedMesh = tree.children[1];
-        const xSwayRatio = Math.cos(treeRotation);
-        const zSwayRatio = Math.sin(treeRotation);
+        const xSwayRatio = Math.sin(treeRotation);
+        const zSwayRatio = Math.cos(treeRotation);
+
+        console.log(treeRotation);
+        console.log(xSwayRatio);
 
         for(let i=0; i<skinnedMesh.skeleton.bones.length; i++){
           const bone = skinnedMesh.skeleton.bones[i];
-          bone.rotation.x += swayRotation;
-          bone.rotation.z = swayRotation;
+          bone.rotation.x += (swayRotation);
+          // bone.rotation.z += (swayRotation * zSwayRatio);
         }
       }
       this.swayAngle += swayStep;

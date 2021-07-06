@@ -5,20 +5,16 @@ import { SkeletonUtils } from "three/examples/jsm/utils/SkeletonUtils";
 import modelDir from "../../resources/models/bamboo/BambooWithBones.fbx";
 
 import diffuseDir from "../../resources/textures/bamboo/diffuse.jpg";
-import specularDir from "../../resources/textures/bamboo/specular.jpg";
-import normalDir from "../../resources/textures/bamboo/normal.jpg";
 import alphaDir from "../../resources/textures/bamboo/alpha.jpg";
 
 export default class Bamboo {
   constructor(textureLoader, treeCount, width, height) {
-    this.material = new THREE.MeshPhongMaterial({
+    this.material = new THREE.MeshBasicMaterial({
       map: textureLoader.load(diffuseDir),
-      specularMap: textureLoader.load(specularDir),
-      normalMap: textureLoader.load(normalDir),
       alphaMap: textureLoader.load(alphaDir),
-      alphaTest: 0.8,
+      alphaTest: 0.5,
       side:THREE.DoubleSide,
-      opacity: 0.0,
+      opacity: 1.0,
       transparent: true
     });
 
@@ -49,8 +45,7 @@ export default class Bamboo {
           clone.position.x = THREE.MathUtils.randFloat(-self.xPositionRange, self.xPositionRange);
           clone.position.z = THREE.MathUtils.randFloat(-self.zPositionRange, self.zPositionRange);
 
-          // clone.rotation.y = (2 * Math.PI) * THREE.MathUtils.randFloat(0, 1);
-          clone.rotation.y = (Math.PI/2) * THREE.MathUtils.randFloat(0, 1);
+          clone.rotation.y = (2 * Math.PI) * THREE.MathUtils.randFloat(0, 1);
 
           const scaleNum = THREE.MathUtils.randFloat(0.5, 1.25);
           clone.scale.x = scaleNum;
@@ -60,6 +55,7 @@ export default class Bamboo {
           scene.add(clone);
           self.trees.push(clone);
         }
+        console.log(self.trees);
       }
     );
   }
@@ -95,8 +91,8 @@ export default class Bamboo {
         const ySwayRatio = Math.sin(treeRotation);
 
         for(let i=0, bone=skinnedMesh.skeleton.bones[i]; i<skinnedMesh.skeleton.bones.length; i++){
-          bone.rotation.y = swayRotation;
-          bone.rotation.z = swayRotation;
+          bone.rotation.y = Math.PI/2;
+          // bone.rotation.z = Math.PI/2;
 
           // bone.rotation.x = swayRotation * xSwayRatio;
           // bone.rotation.y = swayRotation * ySwayRatio;
@@ -106,10 +102,12 @@ export default class Bamboo {
     }
   }
 
-  animateTree(tree){
-    for(const bone of tree.skeleton.bones){
-      bone.rotation.x += (Math.PI / 256);
-    }
+  mouseOverAnimation(tree){
+    const skinnedMesh = tree.children[1];
+    // tree.parent.rotation.y+= (Math.PI / 30);
+    // for(const bone of tree.skeleton.bones){
+    //   bone.rotation.z += (Math.PI / 30);
+    // }
 
     // this.animatedTrees.push(tree);
     // console.log(this.animatedTrees);

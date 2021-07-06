@@ -77,11 +77,11 @@ export default class Forest {
     this.bamboo.load(this.scene);
     this.bamboo.makeVisible();
 
-    // this.grass.load(this.scene);
-    // this.grass.makeVisible();
-    //
-    // this.sideboard.load(this.scene);
-    // this.sideboard.makeVisible();
+    this.grass.load(this.scene);
+    this.grass.makeVisible();
+
+    this.sideboard.load(this.scene);
+    this.sideboard.makeVisible();
   }
 
   clearScene(){
@@ -116,11 +116,7 @@ export default class Forest {
 
   	const intersects = this.raycaster.intersectObjects(this.bamboo.trees, true);
   	for (const intersection of intersects) {
-      // console.log(intersection.object.skeleton.bones[0]);
-      // intersection.object.skeleton.bones[0].z += Math.PI/2;
-      // console.log(intersection.object);
-
-      // this.bamboo.animateTree(intersection.object);
+      this.bamboo.mouseOverAnimation(intersection.object.parent);
   	}
   }
 }

@@ -34,7 +34,6 @@ export default class Bamboo {
       modelDir,
       function(object) {
         object.traverse(function (child) {
-          console.log(child);
           if (child instanceof THREE.SkinnedMesh) {
             child.material = self.material;
           }
@@ -54,16 +53,18 @@ export default class Bamboo {
           clone.position.x = THREE.MathUtils.randFloat(-self.xPositionRange, self.xPositionRange);
           clone.position.z = THREE.MathUtils.randFloat(-self.zPositionRange, self.zPositionRange);
 
-          clone.rotation.y = (2 * Math.PI) * THREE.MathUtils.randFloat(0, 1);
-
           const scaleNum = THREE.MathUtils.randFloat(0.5, 1.25);
           clone.scale.x = scaleNum;
           clone.scale.y = scaleNum;
           clone.scale.z = scaleNum;
 
+
+          // clone.rotation.y = (2 * Math.PI) * THREE.MathUtils.randFloat(0, 1);
+
           scene.add(clone);
           self.trees.push(clone);
         }
+        console.log(self.trees);
       }
     );
   }
@@ -95,14 +96,18 @@ export default class Bamboo {
       for(const tree of this.trees){
         const treeRotation = tree.rotation.y;
         const skinnedMesh = tree.children[1];
+        const armature = tree.children[0];
+        console.log(armature);
         const xSwayRatio = Math.sin(treeRotation);
         const zSwayRatio = Math.cos(treeRotation);
 
-        console.log(treeRotation);
-        console.log(xSwayRatio);
+        // console.log(treeRotation);
+        // console.log(xSwayRatio);
 
         for(let i=0; i<skinnedMesh.skeleton.bones.length; i++){
           const bone = skinnedMesh.skeleton.bones[i];
+          // bone.rotateOnWorldAxis(new THREE.Vector3(1.0, 0.0, 0.0), swayRotation);
+          // console.log(bone.getWorldQuaternion(new THREE.Quaternion()));
           bone.rotation.x += (swayRotation);
           // bone.rotation.z += (swayRotation * zSwayRatio);
         }
@@ -112,6 +117,9 @@ export default class Bamboo {
   }
 
   mouseOverAnimation(tree){
+    const cloneGeometry = tree.children[1].geometry;
+    cloneGeometry.rotateZ(Math.PI / 180);
+
     // const swayLimit = (Math.PI / 4096);
     // const swayStep = (Math.PI / 180);
     // const swayRotation = (Math.sin(this.swayAngle) * swayLimit);

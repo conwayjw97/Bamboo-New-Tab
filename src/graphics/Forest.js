@@ -46,7 +46,7 @@ export default class Forest {
     function loop(){
       self.animationFrameId = requestAnimationFrame(loop);
       self.fadeIn();
-      // self.bamboo.swayAnimation();
+      self.bamboo.swayAnimation();
       self.renderer.render(self.scene, self.camera);
     }
 

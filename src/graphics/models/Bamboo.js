@@ -14,7 +14,7 @@ export default class Bamboo {
       alphaMap: textureLoader.load(alphaDir),
       alphaTest: 0.5,
       side:THREE.DoubleSide,
-      opacity: 1.0,
+      opacity: 0.0,
       transparent: true
     });
 
@@ -37,18 +37,11 @@ export default class Bamboo {
           if (child instanceof THREE.SkinnedMesh) {
             child.material = self.material;
           }
-          // if (child instanceof THREE.Bone) {
-          //   if(child.name ==  "1"){
-          //     child.rotation.set(Math.PI/2, 0, 0); // For some reason bone 1's default x orientation is 90 degrees clockwise
-          //   }
-          //   else{
-          //     child.rotation.set(0, 0, 0);
-          //   }
-          // }
         });
 
         for (let i = 0; i < self.treeCount; i++) {
           const clone = SkeletonUtils.clone(object);
+          const cloneGeometry = clone.children[1].geometry.clone();
 
           clone.position.x = THREE.MathUtils.randFloat(-self.xPositionRange, self.xPositionRange);
           clone.position.z = THREE.MathUtils.randFloat(-self.zPositionRange, self.zPositionRange);
@@ -58,7 +51,7 @@ export default class Bamboo {
           clone.scale.y = scaleNum;
           clone.scale.z = scaleNum;
 
-          const cloneGeometry = clone.children[1].geometry.clone();
+          // Only the geometry is rotated to not change the bone axes
           cloneGeometry.rotateZ((2 * Math.PI) * THREE.MathUtils.randFloat(0, 1));
           clone.children[1].geometry = cloneGeometry;
 
@@ -75,12 +68,12 @@ export default class Bamboo {
   }
 
   fadeIn(){
-    if(this.material.opacity < 0.8){
+    if(this.material.opacity < 0.5){
       this.isFadingIn = true;
-      this.material.opacity = 0.8;
+      this.material.opacity = 0.5;
     }
     else if(this.material.opacity < 1.0){
-      this.material.opacity += 0.001;
+      this.material.opacity += 0.0025;
     }
     else if(this.material.opacity > 1.0){
       this.isFadingIn = false;

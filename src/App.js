@@ -9,9 +9,9 @@ import "react-dat-gui/dist/index.css";
 
 function App() {
   const [settings, setSettings] = useState({
-    width: 300,
-    height: 300,
-    trees: 400
+    width: 800,
+    height: 400,
+    trees: 350
   });
   const [updateCount, setUpdateCount] = useState(0);
 

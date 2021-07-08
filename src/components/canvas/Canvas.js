@@ -11,13 +11,13 @@ function Canvas(props) {
   useEffect(() => {
     forest.current = new Forest(canvas.current, props.settings);
 
-    canvas.current.onmousemove = (e) => {
-      if(!forest.current.bamboo.isFadingIn){
-        const x = (e.clientX / window.innerWidth) * 2 - 1;
-    	  const y = -(e.clientY / window.innerHeight) * 2 + 1;
-        forest.current.onMouseMove(x, y);
-      }
-    }
+  //   canvas.current.onmousemove = (e) => {
+  //     if(!forest.current.bamboo.isFadingIn){
+  //       const x = (e.clientX / window.innerWidth) * 2 - 1;
+  //   	  const y = -(e.clientY / window.innerHeight) * 2 + 1;
+  //       forest.current.onMouseMove(x, y);
+  //     }
+  //   }
   }, []);
 
   useEffect(() => {

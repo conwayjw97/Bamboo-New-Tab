@@ -20,7 +20,7 @@ import Sideboard from "./models/Sideboard.js";
 export default class Forest {
   constructor(canvas, settings) {
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100000);
-    this.camera.position.set(0, 250, 500);
+    this.camera.position.set(0, 260, 450);
 
     this.renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
     this.renderer.setSize(window.innerWidth, window.innerHeight);

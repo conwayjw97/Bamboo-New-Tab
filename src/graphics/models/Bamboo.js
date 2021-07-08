@@ -21,7 +21,6 @@ export default class Bamboo {
     this.treeCount = treeCount;
     this.xPositionRange = width/2;
     this.zPositionRange = height/2;
-
     this.swayAngle = 0;
     this.trees = [];
     this.animatedTrees = [];
@@ -73,7 +72,7 @@ export default class Bamboo {
       this.material.opacity = 0.5;
     }
     else if(this.material.opacity < 1.0){
-      this.material.opacity += 0.0025;
+      this.material.opacity += 0.005;
     }
     else if(this.material.opacity > 1.0){
       this.isFadingIn = false;
@@ -85,12 +84,12 @@ export default class Bamboo {
     if(this.trees !== []){
       const swayLimit = (Math.PI / 8192);
       const swayStep = (Math.PI / 360);
-      const swayRotation = (Math.sin(this.swayAngle) * swayLimit);
+      const swayRotation = (Math.cos(this.swayAngle) * swayLimit);
       for(const tree of this.trees){
         const skinnedMesh = tree.children[1];
         for(let i=0; i<skinnedMesh.skeleton.bones.length; i++){
           const bone = skinnedMesh.skeleton.bones[i];
-          bone.rotation.x += (swayRotation);
+          bone.rotation.z += (swayRotation);
         }
       }
       this.swayAngle += swayStep;
@@ -98,24 +97,6 @@ export default class Bamboo {
   }
 
   mouseOverAnimation(tree){
-
-
-    // const swayLimit = (Math.PI / 4096);
-    // const swayStep = (Math.PI / 180);
-    // const swayRotation = (Math.sin(this.swayAngle) * swayLimit);
-    //
-    // const skinnedMesh = tree.children[1];
-    // for(const bone of skinnedMesh.skeleton.bones){
-    //   bone.rotation.x += swayRotation;
-    // }
-    //
-    // this.swayAngle += swayStep;
-
-    // this.animatedTrees.push(tree);
-    // console.log(this.animatedTrees);
-
-    // for ( let i = 0; i < mesh.skeleton.bones.length; i ++ ) {
-    //   mesh.skeleton.bones[ i ].rotation.z = Math.sin( time ) * 2 / mesh.skeleton.bones.length;
-    // }
+    console.log(tree);
   }
 }

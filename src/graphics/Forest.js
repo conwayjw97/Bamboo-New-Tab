@@ -75,13 +75,8 @@ export default class Forest {
     this.scene.add(new THREE.AmbientLight(0x333333, 15));
 
     this.bamboo.load(this.scene);
-    // this.bamboo.makeVisible();
-
     this.grass.load(this.scene);
-    // this.grass.makeVisible();
-
     this.sideboard.load(this.scene);
-    // this.sideboard.makeVisible();
   }
 
   clearScene(){

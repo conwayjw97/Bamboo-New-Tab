@@ -50,7 +50,7 @@ export default class Sideboard {
 
   fadeIn(){
     if(this.material.opacity < 1.0){
-      this.material.opacity += 0.005;
+      this.material.opacity += 0.01;
     }
     else if(this.material.opacity > 1.0){
       this.material.opacity = 1.0;

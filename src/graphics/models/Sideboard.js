@@ -6,6 +6,7 @@ export default class Sideboard {
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(7, 1);
+    
     this.material = new THREE.MeshBasicMaterial({
       map: texture,
       side: THREE.DoubleSide,

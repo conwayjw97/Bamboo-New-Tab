@@ -6,6 +6,7 @@ export default class Grass {
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set( 4, 4 );
+    
     this.material = new THREE.MeshBasicMaterial({
       map: texture,
       side: THREE.DoubleSide,

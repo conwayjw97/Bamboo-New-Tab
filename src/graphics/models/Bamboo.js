@@ -2,16 +2,14 @@ import * as THREE from "three";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import { SkeletonUtils } from "three/examples/jsm/utils/SkeletonUtils";
 
-import modelDir from "../../resources/models/bamboo/BambooWithBones.fbx";
-
-import diffuseDir from "../../resources/textures/bamboo/diffuse.jpg";
-import alphaDir from "../../resources/textures/bamboo/alpha.jpg";
-
 export default class Bamboo {
   constructor(textureLoader, treeCount, width, height) {
+    const diffuse = process.env.PUBLIC_URL + "/textures/bamboo/diffuse.jpg";
+    const alpha = process.env.PUBLIC_URL + "/textures/bamboo/alpha.jpg";
+
     this.material = new THREE.MeshBasicMaterial({
-      map: textureLoader.load(diffuseDir),
-      alphaMap: textureLoader.load(alphaDir),
+      map: textureLoader.load(diffuse),
+      alphaMap: textureLoader.load(alpha),
       alphaTest: 0.5,
       side:THREE.DoubleSide,
       opacity: 0.0,
@@ -30,7 +28,7 @@ export default class Bamboo {
   load(scene){
     const self = this;
     new FBXLoader().load(
-      modelDir,
+      process.env.PUBLIC_URL + "/models/bamboo/BambooWithBones.fbx",
       function(object) {
         object.traverse(function (child) {
           if (child instanceof THREE.SkinnedMesh) {

@@ -1,10 +1,8 @@
 import * as THREE from "three";
 
-import grassDir from "../../resources/textures/grass/grass.jpg";
-
 export default class Grass {
   constructor(textureLoader, width, height) {
-    const texture = textureLoader.load(grassDir);
+    const texture = textureLoader.load(process.env.PUBLIC_URL + "/textures/grass/grass.jpg");
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set( 4, 4 );

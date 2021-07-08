@@ -1,10 +1,8 @@
 import * as THREE from "three";
 
-import woodDir from "../../resources/textures/wood/wood.jpg";
-
 export default class Sideboard {
   constructor(textureLoader, width, height){
-    const texture = textureLoader.load(woodDir);
+    const texture = textureLoader.load(process.env.PUBLIC_URL + "/textures/wood/wood.jpg");
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(7, 1);

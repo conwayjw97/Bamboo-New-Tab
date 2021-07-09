@@ -9,7 +9,7 @@ function App() {
   const [settings, setSettings] = useState({
     width: 800,
     height: 400,
-    trees: 350
+    trees: 400
   });
   const [updateCount, setUpdateCount] = useState(0);
 

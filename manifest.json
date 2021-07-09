@@ -1,15 +1,13 @@
 {
   "manifest_version": 2,
-  "name": "Bamboo Extension",
-  "description": "This extension is a starting point to create a real Chrome extension",
+  "name": "Bamboo New Tab",
+  "description": "New Tab homepage with a randomly generated bamboo forest for your background",
   "version": "0.0.1",
   "chrome_url_overrides" : {
     "newtab": "index.html"
   },
   "icons": {
-    "16": "logo192.png",
-    "48": "logo192.png",
-    "128": "logo192.png"
+    "16": "logo192.png"
   },
   "permissions": [
   ]

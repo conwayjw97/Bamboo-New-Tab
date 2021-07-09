@@ -1,4 +1,14 @@
-.box{
-    margin: 0 auto;
-    display: block;
+.search{
+    position: absolute;
+    left: 0px;
+    text-align: center;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: xx-large;
+    font-family: Consolas, monaco, monospace;
+    letter-spacing: -0.2px;
+    word-spacing: 6px;
+    color: rgba(0, 0, 0, 0.8);
+    text-shadow: 2px 2px 8px white;
 }

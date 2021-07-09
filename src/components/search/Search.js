@@ -1,26 +1,32 @@
 import React, { useEffect, useState, useRef } from "react";
 
-// import "./Search.css";
+import "./Search.css";
 
 function Search(props) {
+  const field = useRef(null);
+
+  const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    field.current.select();
+
+    field.current.onkeypress = (e) => {
+      if (e.key === 'Enter') {
+        console.log('do validate');
+      }
+    }
+  }, []);
+
+  const handleFieldChange = (query) => {
+    console.log(query);
+    setQuery(query);
+  }
+
   return (
-    <div className="box">
-      <input style={{
-          position:"absolute",
-          left:"0px",
-          top: window.innerHeight/2,
-          textAlign: "center",
-          width: window.innerWidth,
-          background: "transparent",
-          border: "none",
-          outline: "none",
-          fontSize: "xx-large",
-          fontFamily: "Tahoma, Geneva, sans-serif",
-          letterSpacing: "-0.2px",
-          wordSpacing: "6px",
-          color: "rgb(71,191,2)"
-        }}
-        type="search" id="search" placeholder="Search" />
+    <div>
+      <input className="search" ref={field} type="text" placeholder=""
+        style={{top: window.innerHeight/2, width: window.innerWidth}}
+        onChange={handleFieldChange} />
     </div>
   );
 }

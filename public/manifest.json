@@ -6,8 +6,11 @@
   "chrome_url_overrides" : {
     "newtab": "index.html"
   },
+  "options_page": "settings.html",
   "icons": {
-    "16": "logo192.png"
+    "16": "logo192.png",
+    "48": "logo192.png",
+    "128": "logo192.png"
   },
   "permissions": [
   ]

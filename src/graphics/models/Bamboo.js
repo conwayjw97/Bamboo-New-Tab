@@ -81,7 +81,8 @@ export default class Bamboo {
   swayAnimation(){
     if(this.trees !== []){
       const swayLimit = (Math.PI / 8192);
-      const swayStep = (Math.PI / 360);
+      // const swayStep = (Math.PI / 360);
+      const swayStep = (Math.PI / 180);
       const swayRotation = (Math.cos(this.swayAngle) * swayLimit);
       for(const tree of this.trees){
         const skinnedMesh = tree.children[1];

@@ -1,15 +1,3 @@
-/*
-To-Do:
-  - Loading state?
-  - New models
-  - Check when all models loaded
-  - Fix bamboo alphaMap for a smooth fade-in
-
-Links of interest:
-https://stackoverflow.com/questions/54731571/animation-rotation-movement-of-an-object-on-mouse-click
-https://threejs.org/examples/webgl_water_flowmap.html
-*/
-
 import * as THREE from "three";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
@@ -67,7 +55,7 @@ export default class Forest {
 
   loadScene() {
     const near = 1;
-    const far = 900;
+    const far = 1;
     const color = 'white';
     this.scene.fog = new THREE.Fog(color, near, far);
     this.scene.background = new THREE.Color(color);
@@ -75,8 +63,11 @@ export default class Forest {
     this.scene.add(new THREE.AmbientLight(0x333333, 15));
 
     this.bamboo.load(this.scene);
+    this.bamboo.makeVisible();
     this.grass.load(this.scene);
+    this.grass.makeVisible();
     this.sideboard.load(this.scene);
+    this.sideboard.makeVisible();
   }
 
   clearScene(){
@@ -99,6 +90,9 @@ export default class Forest {
     fade in together, and this is because doing so breaks the opacity of
     materials without alphaMaps.
     */
+    if(this.scene.fog.far < 800){
+      this.scene.fog.far = this.scene.fog.far + 30;
+    }
     this.bamboo.fadeIn();
     this.grass.fadeIn();
     this.sideboard.fadeIn();

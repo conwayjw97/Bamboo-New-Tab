@@ -7,9 +7,9 @@ import Search from "./components/search/Search.js";
 
 function App() {
   const [settings, setSettings] = useState({
-    width: 800,
+    width: 600,
     height: 400,
-    trees: 400
+    trees: 350
   });
   const [updateCount, setUpdateCount] = useState(0);
 

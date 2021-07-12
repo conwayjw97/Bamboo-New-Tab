@@ -4,6 +4,7 @@ import "./App.css";
 
 import Canvas from "./components/canvas/Canvas.js";
 import Search from "./components/search/Search.js";
+import Settings from "./components/settings/Settings.js";
 
 function App() {
   const [settings, setSettings] = useState({
@@ -21,6 +22,7 @@ function App() {
     <div className="App">
       <Canvas settings={settings} updateCount={updateCount}/>
       <Search />
+      <Settings />
     </div>
   );
 }

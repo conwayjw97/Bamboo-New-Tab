@@ -1,0 +1,15 @@
+.button {
+  position: absolute;
+  font-size: xx-large;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  color: #757575;
+  text-shadow: 2px 2px 3px white;
+  transform: scale(-1, 1);
+  transition: 0.3s;
+}
+
+.button:hover {
+  text-shadow: 2px 2px 10px white;
+}

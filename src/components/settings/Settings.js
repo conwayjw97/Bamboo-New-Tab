@@ -61,6 +61,12 @@ function Settings(props) {
 
         <div className="separator" />
 
+        <label className="info">
+            More trees will result in<br/>increased resource and<br/>battery usage!
+        </label>
+
+        <div className="separator" />
+
         <label className="title">
             Camera
         </label>

@@ -42,6 +42,11 @@ label.title {
   font-size: xx-large;
 }
 
+label.info {
+  text-align: center;
+  font-size: large;
+}
+
 div.variable {
   font-size: large;
 }

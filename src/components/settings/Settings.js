@@ -14,6 +14,7 @@ function Settings(props) {
       <button className="button openButton" style={{top: window.innerHeight-60, left: window.innerWidth-60}} onClick={handleButtonClick}>&#9998;</button>
       <div className="settingsMenu" style={{width: showing ? "300px" : "0"}}>
         <button className="button closeButton" onClick={handleButtonClick}>&times;</button>
+
         <label className="title">
             Graphics
         </label>
@@ -22,7 +23,7 @@ function Settings(props) {
             Width
           </span>
           <span className="variableInput">
-            <input type="range" id="width" name="width" min="10" max="1000" value={props.settings.width} onChange={props.handleSettingsChange} />
+            <input type="range" id="width" min="10" max="1000" value={props.settings.width} onChange={props.handleSettingsChange} />
           </span>
           <span className="variableValue">
             {props.settings.width}
@@ -33,7 +34,7 @@ function Settings(props) {
             Height
           </span>
           <span className="variableInput">
-            <input type="range" id="trees" name="trees" min="10" max="1000" value={props.settings.height} onChange={props.handleSettingsChange} />
+            <input type="range" id="height" min="10" max="1000" value={props.settings.height} onChange={props.handleSettingsChange} />
           </span>
           <span className="variableValue">
             {props.settings.height}
@@ -44,12 +45,29 @@ function Settings(props) {
             Trees
           </span>
           <span className="variableInput">
-            <input type="range" id="trees" name="trees" min="1" max="1000" value={props.settings.trees} onChange={props.handleSettingsChange} />
+            <input type="range" id="trees" min="1" max="1000" value={props.settings.trees} onChange={props.handleSettingsChange} />
           </span>
           <span className="variableValue">
             {props.settings.trees}
           </span>
         </div>
+
+        <label className="title">
+            Camera
+        </label>
+        <div className="variable">
+          <span className="variableName">
+            View
+          </span>
+          <span className="variableInput">
+            <select id="camera" onChange={props.handleSettingsChange}>
+              <option value="default">Default</option>
+              <option value="top-down">Top-Down</option>
+              <option value="front">Front</option>
+            </select>
+          </span>
+        </div>
+
         <button className="update" onClick={props.handleUpdate}>Update</button>
       </div>
     </div>

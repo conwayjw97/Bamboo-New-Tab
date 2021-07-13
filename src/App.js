@@ -10,21 +10,24 @@ function App() {
   const [settings, setSettings] = useState({
     width: 600,
     height: 400,
-    trees: 350
+    trees: 350,
+    camera: "default"
   });
   const [updateCount, setUpdateCount] = useState(0);
 
   const handleSettingsChange = (event) => {
-    const newValue = parseInt(event.target.value);
     switch(event.target.id){
       case "width":
-        setSettings(prev => ({...prev, width: newValue}));
+        setSettings(prev => ({...prev, width: parseInt(event.target.value)}));
         break;
       case "height":
-        setSettings(prev => ({...prev, height: newValue}));
+        setSettings(prev => ({...prev, height: parseInt(event.target.value)}));
         break;
       case "trees":
-        setSettings(prev => ({...prev, trees: newValue}));
+        setSettings(prev => ({...prev, trees: parseInt(event.target.value)}));
+        break;
+      case "camera":
+        setSettings(prev => ({...prev, camera: event.target.value}));
         break;
     }
   }

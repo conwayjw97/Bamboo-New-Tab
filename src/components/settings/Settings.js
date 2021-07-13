@@ -24,7 +24,7 @@ function Settings(props) {
         </label>
 
         <div className="separator" />
-        
+
         <div className="variable">
           <span className="variableName">
             Width

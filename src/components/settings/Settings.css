@@ -6,10 +6,29 @@
   background: transparent;
   color: #757575;
   text-shadow: 2px 2px 3px white;
-  transform: scale(-1, 1);
   transition: 0.3s;
 }
 
 .button:hover {
   text-shadow: 2px 2px 10px white;
+}
+
+.openButton {
+  transform: scale(-1, 1);
+}
+
+.closeButton {
+  top: 0;
+  right: 25px;
+}
+
+.settingsMenu {
+  position: fixed;
+  overflow-x: hidden;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100px;
+  background-color: white;
+  transition: 0.5s;
 }

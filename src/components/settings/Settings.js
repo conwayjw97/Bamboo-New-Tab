@@ -19,6 +19,8 @@ function Settings(props) {
       <div className="settingsMenu" style={{width: showing ? "300px" : "0"}}>
         <button className="button closeButton" onClick={handleButtonClick}>&times;</button>
 
+        <hr/>
+
         <label className="title">
             Graphics
         </label>
@@ -66,6 +68,7 @@ function Settings(props) {
         </label>
 
         <div className="separator" />
+        <hr/>
 
         <label className="title">
             Camera
@@ -87,6 +90,8 @@ function Settings(props) {
           </span>
         </div>
 
+        <div className="separator" />
+        <hr/>
         <div className="separator" />
 
         <button className="update" onClick={handleUpdate}>Update</button>

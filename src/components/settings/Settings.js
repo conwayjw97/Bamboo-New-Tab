@@ -9,6 +9,10 @@ function Settings(props) {
     setShowing(!showing);
   }
 
+  const handleUpdate = (event) => {
+    props.handleUpdate(event);
+  }
+
   return (
     <div>
       <button className="button openButton" style={{top: window.innerHeight-60, left: window.innerWidth-60}} onClick={handleButtonClick}>&#9998;</button>
@@ -18,6 +22,9 @@ function Settings(props) {
         <label className="title">
             Graphics
         </label>
+
+        <div className="separator" />
+        
         <div className="variable">
           <span className="variableName">
             Width
@@ -52,9 +59,14 @@ function Settings(props) {
           </span>
         </div>
 
+        <div className="separator" />
+
         <label className="title">
             Camera
         </label>
+
+        <div className="separator" />
+
         <div className="variable">
           <span className="variableName">
             View
@@ -65,9 +77,13 @@ function Settings(props) {
               <option value="top-down">Top-Down</option>
             </select>
           </span>
+          <span className="variableValue">
+          </span>
         </div>
 
-        <button className="update" onClick={props.handleUpdate}>Update</button>
+        <div className="separator" />
+
+        <button className="update" onClick={handleUpdate}>Update</button>
       </div>
     </div>
   );

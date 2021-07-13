@@ -29,7 +29,7 @@
   top: 0;
   right: 0;
   height: 100%;
-  width: 100px;
+   white-space: nowrap;
   background-color: white;
   padding-top: 30px;
   transition: 0.5s;
@@ -41,17 +41,27 @@ label.title {
   font-size: xx-large;
 }
 
-label.variable {
-  display: block;
+div.variable {
+  font-size: large;
+}
+
+div.separator {
+  padding-top: 20px;
 }
 
 span.variableName {
+  width: 30%;
+  display: inline-block;
 }
 
 span.variableInput {
+  width: 50%;
+  display: inline-block;
 }
 
 span.variableValue {
+  width: 20%;
+  display: inline-block;
 }
 
 button.update {

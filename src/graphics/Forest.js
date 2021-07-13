@@ -51,15 +51,13 @@ export default class Forest {
     switch(settings.camera){
       case "default":
         this.camera.position.set(0, 260, 450);
+        this.camera.lookAt(0, 110, 0);
         break;
       case "top-down":
         this.camera.position.set(0, 600, 0);
-        break;
-      case "front":
-        this.camera.position.set(0, 180, 500);
+        this.camera.lookAt(0, 0, 0);
         break;
     }
-    this.camera.lookAt(0, 110, 0);
 
     console.log(this.camera.position);
   }

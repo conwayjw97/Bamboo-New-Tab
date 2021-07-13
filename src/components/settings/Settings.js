@@ -63,7 +63,6 @@ function Settings(props) {
             <select id="camera" onChange={props.handleSettingsChange}>
               <option value="default">Default</option>
               <option value="top-down">Top-Down</option>
-              <option value="front">Front</option>
             </select>
           </span>
         </div>

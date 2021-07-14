@@ -70,12 +70,29 @@ span.variableInput {
   display: inline-block;
 }
 
+span.variableDropdown {
+  width: 70%;
+  display: inline-block;
+  text-align: left;
+}
+
+select {
+  width: 90%;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 0;
+  border-radius: 4px;
+  margin: 0 1em;
+  width: 85%;
+  height: 2em;
+}
+
 span.variableValue {
   width: 20%;
   display: inline-block;
 }
 
-button.update {
+button.save {
   cursor: pointer;
   transition: 0.3s;
   color: white;
@@ -87,6 +104,6 @@ button.update {
   height: 2em;
 }
 
-button.update:hover {
+button.save:hover {
   background-color: black;
 }

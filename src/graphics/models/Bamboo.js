@@ -65,6 +65,14 @@ export default class Bamboo {
   }
 
   fadeIn(){
+    /*
+    The bamboo material has to be set to 0.5 opacity initially. This is because
+    if the material has an alphaTest value, it will remain transparent until
+    opacity >= alphaTest, so the bamboo material needs a head start when fading
+    in. I didn't set the other textures to alphaTest 0.5 so they can all just
+    fade in together, and this is because doing so breaks the opacity of
+    materials without alphaMaps.
+    */
     if(this.material.opacity < 0.5){
       this.isFadingIn = true;
       this.material.opacity = 0.5;

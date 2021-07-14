@@ -32,7 +32,7 @@ function App() {
     }
   }
 
-  const handleUpdate = () => {
+  const handleSave = () => {
     setUpdateCount(updateCount + 1);
   }
 
@@ -40,7 +40,7 @@ function App() {
     <div className="App">
       <Canvas settings={settings} updateCount={updateCount}/>
       <Search />
-      <Settings settings={settings} handleSettingsChange={handleSettingsChange} handleUpdate={handleUpdate}/>
+      <Settings settings={settings} handleSettingsChange={handleSettingsChange} handleSave={handleSave}/>
     </div>
   );
 }

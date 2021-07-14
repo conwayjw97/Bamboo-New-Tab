@@ -9,8 +9,8 @@ function Settings(props) {
     setShowing(!showing);
   }
 
-  const handleUpdate = (event) => {
-    props.handleUpdate(event);
+  const handleSave = (event) => {
+    props.handleSave(event);
   }
 
   return (
@@ -80,10 +80,11 @@ function Settings(props) {
           <span className="variableName">
             View
           </span>
-          <span className="variableInput">
+          <span className="variableDropdown">
             <select id="camera" onChange={props.handleSettingsChange}>
               <option value="default">Default</option>
               <option value="top-down">Top-Down</option>
+              <option value="zoomed">Zoomed</option>
             </select>
           </span>
           <span className="variableValue">
@@ -94,7 +95,11 @@ function Settings(props) {
         <hr/>
         <div className="separator" />
 
-        <button className="update" onClick={handleUpdate}>Update</button>
+        <button className="save" onClick={handleSave}>Save</button>
+
+        <div id="credits" style={{position: "absolute", right: 10, top: window.innerHeight-30}}>
+          <a href="https://github.com/conwayjw97">github.com/conwayjw97/</a>
+        </div>
       </div>
     </div>
   );

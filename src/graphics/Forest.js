@@ -12,10 +12,6 @@ export default class Forest {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setClearColor("rgb(40, 44, 52)");
 
-    // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    // this.controls.target = new THREE.Vector3(0, 110, 0);
-    // this.controls.update();
-
     this.scene = new THREE.Scene();
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
@@ -57,9 +53,11 @@ export default class Forest {
         this.camera.position.set(0, 600, 0);
         this.camera.lookAt(0, 0, 0);
         break;
+      case "zoomed":
+        this.camera.position.set(0, 230, 360);
+        this.camera.lookAt(0, 110, 0);
+        break;
     }
-
-    console.log(this.camera.position);
   }
 
   initModels(settings){
@@ -97,14 +95,6 @@ export default class Forest {
   }
 
   fadeIn(){
-    /*
-    The bamboo material has to be set to 0.8 opacity initially. This is because
-    if the material has an alphaTest value, it will remain transparent until
-    opacity >= alphaTest, so the bamboo material needs a head start when fading
-    in. I didn't set the other textures to alphaTest 0.8 so they can all just
-    fade in together, and this is because doing so breaks the opacity of
-    materials without alphaMaps.
-    */
     if(this.scene.fog.far < 800){
       this.scene.fog.far = this.scene.fog.far + 30;
     }

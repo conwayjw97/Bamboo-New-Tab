@@ -1,4 +1,6 @@
-import { useState } from "react";
+/* global chrome */
+
+import { useEffect, useState } from "react";
 
 import "./App.css";
 
@@ -7,13 +9,33 @@ import Search from "./components/search/Search.js";
 import Settings from "./components/settings/Settings.js";
 
 function App() {
-  const [settings, setSettings] = useState({
+  const initialSettings = {
     width: 600,
     height: 400,
     trees: 350,
     camera: "default"
-  });
+  };
+  const [settings, setSettings] = useState(initialSettings);
   const [updateCount, setUpdateCount] = useState(0);
+
+  if(chrome.storage != undefined){
+    chrome.storage.sync.get(["bamboo_new_tab_settings"], function(data) {
+      if (data.bamboo_new_tab_settings === undefined) {
+        console.log("Empty");
+        setSettings(initialSettings);
+        chrome.storage.sync.set({"bamboo_new_tab_settings": settings}, function() {
+          console.log("bamboo_new_tab_settings is set to " + settings.toString());
+        });
+      } else {
+        console.log("Existing");
+        console.log(data.bamboo_new_tab_settings);
+        setSettings(data.bamboo_new_tab_settings);
+      }
+    });
+  }
+
+  console.log("initialSettings");
+  console.log(initialSettings);
 
   const handleSettingsChange = (event) => {
     switch(event.target.id){
@@ -33,6 +55,14 @@ function App() {
   }
 
   const handleSave = () => {
+    console.log("handleSave");
+
+    if(chrome.storage != undefined){
+      chrome.storage.sync.set({"bamboo_new_tab_settings": settings}, function() {
+        console.log("bamboo_new_tab_settings is set to " + settings.toString());
+      });
+    }
+
     setUpdateCount(updateCount + 1);
   }
 

@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 
 import "./Settings.css";
 
 function Settings(props) {
-  console.log();
   const [showing, setShowing] = useState(false);
 
   const handleButtonClick = (event) => {

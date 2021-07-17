@@ -1,6 +1,6 @@
 /* global chrome */
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import "./App.css";
 
@@ -43,7 +43,7 @@ function App(props) {
   }
 
   const handleSave = () => {
-    if(chrome.storage != undefined){
+    if(chrome.storage !== undefined){
       chrome.storage.sync.set({"bamboo_new_tab_settings": settings});
     }
 

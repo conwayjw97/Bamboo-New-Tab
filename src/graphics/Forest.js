@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
 import Bamboo from "./models/Bamboo.js";
 import Grass from "./models/Grass.js";

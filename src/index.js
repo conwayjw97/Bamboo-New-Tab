@@ -6,7 +6,7 @@ import './style.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-if(chrome.storage != undefined){
+if(chrome.storage !== undefined){
   chrome.storage.sync.get(["bamboo_new_tab_settings"], function(data) {
     ReactDOM.render(
       <React.StrictMode>

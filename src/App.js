@@ -8,34 +8,22 @@ import Canvas from "./components/canvas/Canvas.js";
 import Search from "./components/search/Search.js";
 import Settings from "./components/settings/Settings.js";
 
-function App() {
-  const initialSettings = {
+function App(props) {
+  let initialSettings = {
     width: 600,
     height: 400,
     trees: 350,
     camera: "default"
   };
-  const [settings, setSettings] = useState(initialSettings);
-  const [updateCount, setUpdateCount] = useState(0);
 
-  if(chrome.storage != undefined){
-    chrome.storage.sync.get(["bamboo_new_tab_settings"], function(data) {
-      if (data.bamboo_new_tab_settings === undefined) {
-        console.log("Empty");
-        setSettings(initialSettings);
-        chrome.storage.sync.set({"bamboo_new_tab_settings": settings}, function() {
-          console.log("bamboo_new_tab_settings is set to " + settings.toString());
-        });
-      } else {
-        console.log("Existing");
-        console.log(data.bamboo_new_tab_settings);
-        setSettings(data.bamboo_new_tab_settings);
-      }
-    });
+  if (props.bamboo_new_tab_settings === undefined) {
+    chrome.storage.sync.set({"bamboo_new_tab_settings": initialSettings});
+  } else {
+    initialSettings = props.bamboo_new_tab_settings;
   }
 
-  console.log("initialSettings");
-  console.log(initialSettings);
+  const [settings, setSettings] = useState(initialSettings);
+  const [updateCount, setUpdateCount] = useState(0);
 
   const handleSettingsChange = (event) => {
     switch(event.target.id){
@@ -55,12 +43,8 @@ function App() {
   }
 
   const handleSave = () => {
-    console.log("handleSave");
-
     if(chrome.storage != undefined){
-      chrome.storage.sync.set({"bamboo_new_tab_settings": settings}, function() {
-        console.log("bamboo_new_tab_settings is set to " + settings.toString());
-      });
+      chrome.storage.sync.set({"bamboo_new_tab_settings": settings});
     }
 
     setUpdateCount(updateCount + 1);

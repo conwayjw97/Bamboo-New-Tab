@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import "./Settings.css";
 
 function Settings(props) {
+  console.log();
   const [showing, setShowing] = useState(false);
 
   const handleButtonClick = (event) => {
@@ -81,7 +82,7 @@ function Settings(props) {
             View
           </span>
           <span className="variableDropdown">
-            <select id="camera" onChange={props.handleSettingsChange}>
+            <select id="camera" value={props.settings.camera} onChange={props.handleSettingsChange}>
               <option value="default">Default</option>
               <option value="top-down">Top-Down</option>
               <option value="zoomed">Zoomed</option>

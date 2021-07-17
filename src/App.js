@@ -16,9 +16,9 @@ function App(props) {
     camera: "default"
   };
 
-  if (props.bamboo_new_tab_settings === undefined) {
+  if (chrome.storage !== undefined && props.bamboo_new_tab_settings === undefined) {
     chrome.storage.sync.set({"bamboo_new_tab_settings": initialSettings});
-  } else {
+  } else if(props.bamboo_new_tab_settings !== undefined) {
     initialSettings = props.bamboo_new_tab_settings;
   }
 

@@ -1,4 +1,4 @@
-# Bamboo-Forest-New-Tab
+# Bamboo-New-Tab
 
 https://user-images.githubusercontent.com/39833325/126067348-bc1bcab9-1ed4-4c2c-9ecf-2943cee77e44.mp4
 

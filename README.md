@@ -10,7 +10,7 @@ Hosted version: https://conwayjw97.github.io/Bamboo-New-Tab/
 
 To run locally, clone and run "yarn start" from the root directory.
 
-To run as a Chrome extension, clone and open chrome://extensions/ in Google Chrome. Select "Load unpacked" and select the /build folder.
+To run as a Chrome extension, clone and go to chrome://extensions/ in Google Chrome. Select "Load unpacked" and select the /build folder.
 
 ## Credits
 

@@ -4,11 +4,11 @@ Google Chrome extension which randomly generates a customisable 3D bamboo forest
 
 ## Demo 
 
-<ins>New Tab Search</ins>
+**New Tab Search**
 
 ![Demo](https://raw.githubusercontent.com/conwayjw97/Bamboo-New-Tab/master/Main.gif)
 
-<ins>Options Menu</ins>
+**Options Menu**
 
 ![Options](https://raw.githubusercontent.com/conwayjw97/Bamboo-New-Tab/master/Settings.gif)
 

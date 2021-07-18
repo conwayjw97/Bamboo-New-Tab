@@ -2,11 +2,7 @@
 
 ![Demo](https://raw.githubusercontent.com/conwayjw97/Bamboo-New-Tab/master/Main.gif)
 
-**(New Tab Search)**
-
 ![Options](https://raw.githubusercontent.com/conwayjw97/Bamboo-New-Tab/master/Settings.gif)
-
-**(Options Menu)**
 
 ## Try it out
 

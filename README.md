@@ -1,12 +1,12 @@
 # Bamboo-Forest-New-Tab
 
-New Tab homepage extension for Google Chrome, which randomly generates a customisable 3D bamboo forest for your new tab background.
+Google Chrome extension which randomly generates a customisable 3D bamboo forest in your new tab.
 
 ![Demo](https://raw.githubusercontent.com/conwayjw97/Bamboo-New-Tab/master/Main.gif)
 
 ![Options](https://raw.githubusercontent.com/conwayjw97/Bamboo-New-Tab/master/Settings.gif)
 
-# Try it out
+## Try it out
 
 Hosted version: https://conwayjw97.github.io/Bamboo-New-Tab/
 
@@ -17,3 +17,9 @@ To run as a Chrome extension, clone and open chrome://extensions/ in Google Chro
 ## Credits
 
 yughues - [Free Bamboo v1](https://opengameart.org/content/free-bamboo-v1)
+
+## Tech Stack
+
+ReactJS - Bootstrapping
+Three.js - WebGL graphics
+Blender - Model rigging

@@ -1,9 +1,5 @@
 # Bamboo-Forest-New-Tab
 
-Google Chrome extension which randomly generates a customisable 3D bamboo forest in your new tab.
-
-## Demo 
-
 **New Tab Search**
 
 ![Demo](https://raw.githubusercontent.com/conwayjw97/Bamboo-New-Tab/master/Main.gif)

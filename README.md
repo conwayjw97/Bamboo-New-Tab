@@ -1,8 +1,8 @@
 # Bamboo-Forest-New-Tab
 
-![Demo](https://raw.githubusercontent.com/conwayjw97/Bamboo-New-Tab/master/Main.gif)
+https://user-images.githubusercontent.com/39833325/126067348-bc1bcab9-1ed4-4c2c-9ecf-2943cee77e44.mp4
 
-![Options](https://raw.githubusercontent.com/conwayjw97/Bamboo-New-Tab/master/Settings.gif)
+https://user-images.githubusercontent.com/39833325/126067352-b45aebc1-3ba6-4e8e-aa2f-c10b946c0143.mp4
 
 ## Try it out
 

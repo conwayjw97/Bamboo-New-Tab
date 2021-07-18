@@ -1,12 +1,12 @@
 # Bamboo-Forest-New-Tab
 
-**New Tab Search**
-
 ![Demo](https://raw.githubusercontent.com/conwayjw97/Bamboo-New-Tab/master/Main.gif)
 
-**Options Menu**
+**(New Tab Search)**
 
 ![Options](https://raw.githubusercontent.com/conwayjw97/Bamboo-New-Tab/master/Settings.gif)
+
+**(Options Menu)**
 
 ## Try it out
 

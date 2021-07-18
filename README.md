@@ -21,5 +21,7 @@ yughues - [Free Bamboo v1](https://opengameart.org/content/free-bamboo-v1)
 ## Tech Stack
 
 ReactJS - Bootstrapping
+
 Three.js - WebGL graphics
+
 Blender - Model rigging
